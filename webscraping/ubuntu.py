@@ -66,7 +66,7 @@ url_prefix = "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/"
 
 # Where I want things to download to, you can change to whatever you want
 download_dir = '../GlibcDownloads'
-gadgets_dir = '../Gadgets'
+gadgets_dir = '../Gadgets/Ubuntu'
 #makes sure dir exists
 os.makedirs(download_dir, exist_ok=True)
 os.makedirs(gadgets_dir, exist_ok=True)

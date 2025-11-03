@@ -1,7 +1,7 @@
 import os
 import re
 
-GADGETS_DIR = "Gadgets"
+GADGETS_DIR = "Gadgets/Ubuntu"
 
 #Function to determine what architechtures and versions are present based on text files
 #present in local directory
