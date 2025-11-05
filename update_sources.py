@@ -1,23 +1,31 @@
 import os
 import re
 
+GADGETS_DIR = "Gadgets/Ubuntu"
+
 #Function to determine what architechtures and versions are present based on text files
 #present in local directory
 def extract_options_from_files():
     architectures = set()
     versions = set()
     
-    # RegEx Pattern to match "[architecture]-[version].txt"
-    pattern = re.compile(r'^([a-zA-Z0-9]+)-([0-9.]+)\.txt$')
+    # New regex pattern for file naming in gadgets folder
+    pattern = re.compile(r"libc6_([0-9][^_]+)_[a-z0-9]+\.txt$")
     
+    # Walk through each architecture subfolder
+    for arch in os.listdir(GADGETS_DIR):
+        arch_path = os.path.join(GADGETS_DIR, arch)
+        if not os.path.isdir(arch_path):
+            continue
+        architectures.add(arch)
+
     #Search local directory for files matching RegEx pattern
     #Note appropriate architectures and versions based on what is found
-    for filename in os.listdir('.'):
-        match = pattern.match(filename)
-        if match:
-            arch, version = match.groups()
-            architectures.add(arch)
-            versions.add(version)
+        for filename in os.listdir(arch_path):
+            match = pattern.match(filename)
+            if match:
+                version = match.group(1)
+                versions.add(version)
     
     #Return architectures and versions that were found in files in local directory
     return sorted(architectures), sorted(versions)
@@ -68,7 +76,6 @@ def main():
     
     if not architectures or not versions:
         print("No valid architecture-version files found in directory.")
-        print("Expected files in format: [architecture]-[version].txt")
         return
 
     #If architectures and/or versions are found, generate new index.html

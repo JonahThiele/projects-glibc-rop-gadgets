@@ -385,7 +385,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const arch = getSelectedArch();
         
         if (version && arch) {
-            return `${arch}-${version}.txt`;
+            // Match new directory + filename pattern
+            return `Gadgets/${arch}/libc6_${version}_${arch}.txt`;
         }
         return null;
     }
