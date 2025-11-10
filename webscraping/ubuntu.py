@@ -84,6 +84,9 @@ match = re.compile(
     r"^libc6(-[a-z0-9]+)?_[0-9].*_(amd64|amd64v3|i386|arm64|armhf|x32)\.deb$"
 )
 
+#regex for reducing file size
+pattern = re.compile(r"\[LOAD\]|\[INFO\]", re.IGNORECASE)
+
 #Skip over the stuff we dont need
 skip = re.compile(r"(-dev|-dbg|-bin|-doc|-locale|-prof|_all\.deb$)")
 
@@ -174,6 +177,15 @@ for link in soup.find_all("a", href=True):
                 stderr=subprocess.STDOUT,
                 check=True,
                 text=True)
+        
+        # remove first LOAD and INFO lines by copying the file into memory
+        # probably a more efficient way of doing this but this should work
+        with open(gadget_path, "r") as f:
+            lines = f.readlines()
+        with open(gadget_path, "w") as f:
+            for line in lines:
+                if not pattern.search(line):
+                    f.write(line)
 
 #delete GlibcDownloads folder and contents
 try:
