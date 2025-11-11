@@ -169,7 +169,25 @@ for link in soup.find_all("a", href=True):
         # Make a subfolder for that architecture
         arch_dir = os.path.join(gadgets_dir, arch)
         os.makedirs(arch_dir, exist_ok=True)
-        gadget_path = os.path.join(arch_dir, name[:-4] + ".txt")
+
+
+        # Make a subfolder for that architecture
+        arch_dir = os.path.join(gadgets_dir, arch)
+        os.makedirs(arch_dir, exist_ok=True)
+
+        # Convert filename to new standardized format
+        parts = name.split("_")
+        if len(parts) >= 3:
+            raw_version = parts[1]
+            arch = parts[2].replace(".deb", "")
+        else:
+            raw_version = "unknown"
+            arch = "unknown"
+
+        version = raw_version.replace("-", "_")
+        new_filename = f"glibc_{version}_{arch}.txt"
+        gadget_path = os.path.join(arch_dir, new_filename)
+
         with open(gadget_path, "w") as out:
             subprocess.run(
                 ["ropper", "--nocolor", "--file", libc_path],

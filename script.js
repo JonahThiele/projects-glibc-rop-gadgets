@@ -354,6 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsList = document.getElementById("autocomplete-results");
     const versionRadios = document.querySelectorAll('input[name="version"]');
     const archRadios = document.querySelectorAll('input[name="arch"]');
+    const distroRadios = document.querySelectorAll('input[name="distro"]');
 
     //Initialize Trie data structure 
     const trie = new Trie();
@@ -379,14 +380,25 @@ document.addEventListener("DOMContentLoaded", function () {
         return null;
     }
 
+    // Helper function to get selected distribution
+    function getSelectedDistro() {
+        for (const radio of distroRadios) {
+            if (radio.checked) {
+                return radio.value;
+            }
+        }
+        return null;
+    }
+
     // Determine filename based on selected options + naming convention: "[arch]-[version].txt"
     function getDataFilename() {
         const version = getSelectedVersion();
         const arch = getSelectedArch();
+        const distro = getSelectedDistro();
         
-        if (version && arch) {
+        if (version && arch && distro) {
             // Match new directory + filename pattern
-            return `Gadgets/${arch}/libc6_${version}_${arch}.txt`;
+            return `Gadgets/${distro}/${arch}/glibc_${version}_${arch}.txt`;
         }
         return null;
     }

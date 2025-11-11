@@ -9,8 +9,8 @@ def extract_options_from_files():
     architectures = set()
     versions = set()
     
-    # New regex pattern for file naming in gadgets folder
-    pattern = re.compile(r"libc6_([0-9][^_]+)_[a-z0-9]+\.txt$")
+    # glibc_<glibcVersion>_<DistroVersion>_<arch>.txt
+    pattern = re.compile(r"^glibc_([^_]+)_([^_]+)_([^_]+)\.txt$")
     
     # Walk through each architecture subfolder
     for arch in os.listdir(GADGETS_DIR):
@@ -46,6 +46,12 @@ def generate_html(architectures, versions):
         <h1>ROP Gadget Autocomplete</h1>
         
         <div class="options-container">
+            <div class="option-group">
+                <h3>Distro</h3>
+                <label><input type="radio" name="distro" value="Ubuntu"> Ubuntu</label><br>
+                <label><input type="radio" name="distro" value="Fedora"> Fedora</label><br>
+            </div>
+
             <div class="option-group">
                 <h3>Glibc Version</h3>
                 {"".join(f'<label><input type="radio" name="version" value="{version}"> {version}</label><br>' for version in versions)}
