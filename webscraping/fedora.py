@@ -503,23 +503,61 @@ def extract_with_rpm2cpio(rpm_file, output_dir="."):
     
     return None
 
-def extract_all_rpms(output_dir, quiet=False):
+def extract_all_rpms(quiet=False):
     # Gets a list of file paths of downloaded files
     files = download_rpms_all_version(quiet)
     # Makes a temp place to store binary
     binary_dir = "../GlibcDownloads/Fedora/Binaries"
     os.makedirs(binary_dir, exist_ok=True)
+    name_list = []
     for f in files:
         result = extract_with_rpm2cpio(f, binary_dir)
         if result:
             print(f"Extracted to: {result}")
             # Ugly line that isolates just the filename, sans path and extention
             name = os.path.splitext(os.path.basename(f))[0]
+            name_list.append(name + "_libc.so.6")
             # Could probably remove the if now, but I was having difficulties so I used it for error checking
             if not copy_binary(result, f"{binary_dir}/{name}_libc.so.6"): 
                 print("Error with copy_binary, quiting")
         else:
             print("Extraction failed")
+    return name_list
+
+def create_rop_gadgets(quiet=False):
+    # Make a subfolder for that architecture
+    gadgets_dir = "../Gadgets/Fedora"
+    binary_dir = "../GlibcDownloads/Fedora/Binaries"
+    names = extract_all_rpms(quiet)
+    for name in names:
+        arch = name.split(".")[3].replace("_libc", "")
+        arch_dir = os.path.join(gadgets_dir, arch)
+        os.makedirs(arch_dir, exist_ok=True)
+        glibc_version = name.split('-')[1]
+        fedora_version = name.split('.')[2]
+        gadget_path = os.path.join(arch_dir, "glibc_" + glibc_version + "_" + fedora_version + "_" + arch + ".txt")
+        glibc_path = os.path.join(binary_dir, name)
+        print(f"Running {name} through ropper to {gadget_path}")
+        with open(gadget_path, "w") as out:
+            subprocess.run(
+                ["ropper", "--nocolor", "--file", glibc_path],
+                stdout=out,
+                stderr=subprocess.STDOUT,
+                check=True,
+                text=True)
+        # remove first LOAD and INFO lines by copying the file into memory
+        # probably a more efficient way of doing this but this should work
+        # regex for reducing file size
+        pattern = re.compile(r"\[LOAD\]|\[INFO\]", re.IGNORECASE)
+        print(f"Attempting to remove junk from {gadget_path}")
+        with open(gadget_path, "r") as f:
+            lines = f.readlines()
+        with open(gadget_path, "w") as f:
+            for line in lines:
+                if not pattern.search(line):
+                    f.write(line)
+        
+    
 
 def main():
     # Can pass 'q' (or anything else) as an command argument to force the program to run non-verbosely
@@ -527,7 +565,7 @@ def main():
     if len(sys.argv) < 2:
         quiet = False
 
-    extract_all_rpms(quiet)
+    create_rop_gadgets(quiet)
 
 if __name__ == "__main__":
     main()
