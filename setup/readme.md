@@ -15,6 +15,11 @@
     -  source ./venv/bin/activate
 2. run the scripts
 
+## when tweaking the digital ocean function
+1. check out this guide to get locally setup:
+https://docs.digitalocean.com/products/functions/getting-started/quickstart/
+
+
 ## steps to create a pr and get code to the repo
 
 1. make sure that you are currently on main
