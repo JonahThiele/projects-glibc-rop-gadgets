@@ -1,0 +1,20 @@
+parameters: {}
+environment: {}
+packages:
+    - name: trigger
+      shared: false
+      environment: {}
+      parameters: {}
+      annotations: {}
+      functions:
+        - name: start_machine
+          binary: false
+          main: ""
+          runtime: python:default
+          web: true
+          triggers:
+            - name: trigger-start_machine
+              sourceType: scheduler
+              sourceDetails:
+                #this should run everyday at midnight
+                cron: "0 0 * * *"
