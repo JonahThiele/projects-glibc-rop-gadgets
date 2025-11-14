@@ -11,7 +11,7 @@ apt install zstd -y
 apt install  rpm2cpio -y
 apt install cron -y
 apt install git -y
-apt install python3-venv
+apt install python3-venv -y
 
 #create and activate new virtual environment for python
 python3 -m venv ./venv
@@ -19,7 +19,7 @@ source ./venv/bin/activate
 
 #install python packages
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r ../setup/requirements.txt
 
 #enable and start cron
 systemctl enable cron
