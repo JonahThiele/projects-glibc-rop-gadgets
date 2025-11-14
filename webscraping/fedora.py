@@ -556,6 +556,14 @@ def create_rop_gadgets(quiet=False):
             for line in lines:
                 if not pattern.search(line):
                     f.write(line)
+
+    # Remove /GlibcDownloads (binaries) directory once it's no longer needed
+    binary_abs_path = os.path.abspath("../GlibcDownloads")
+    if not os.path.exists(binary_abs_path):
+        raise FileNotFoundError(f"Directory not found: {binary_abs_path}")
+    if not os.path.isdir(binary_abs_path):
+        raise NotADirectoryError(f"Not a directory: {binary_abs_path}")
+    shutil.rmtree(binary_abs_path)
         
     
 
