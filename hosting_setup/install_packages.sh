@@ -11,6 +11,7 @@ apt install zstd -y
 apt install  rpm2cpio -y
 apt install cron -y
 apt install git -y
+apt install python-venv
 
 #create and activate new virtual environment for python
 python3 -m venv ./venv
