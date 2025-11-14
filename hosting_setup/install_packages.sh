@@ -30,12 +30,7 @@ systemctl start cron
 git clone https://github.com/dsu-cs/projects-glibc-rop-gadgets.git
 
 #setup the origin
-if git remote | grep -q origin; then
-    git remote set-url origin https://github.com/dsu-cs/projects-glibc-rop-gadgets.git
-else
-    git remote add origin https://github.com/dsu-cs/projects-glibc-rop-gadgets.git
-fi
-
+#grab origin to begin with off main
 #somewhere along here we need to figure out authenication
 
 #pull the latest main branch
