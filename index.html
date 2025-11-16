@@ -9,25 +9,31 @@
 <body>
     <div class="container">
         <h1>ROP Gadget Autocomplete</h1>
-        
+
         <div class="options-container">
+
             <div class="option-group">
                 <h3>Distro</h3>
-                <label><input type="radio" name="distro" value="Ubuntu"> Ubuntu</label><br>
-                <label><input type="radio" name="distro" value="Fedora"> Fedora</label><br>
+                <label><input type="radio" name="distro" value="Ubuntu"> Ubuntu</label><br><label><input type="radio" name="distro" value="Fedora"> Fedora</label><br>
+            </div>
+
+            <div class="option-group">
+                <h3>Distro Version</h3>
+                <label><input type="radio" name="distrover" value="0ubuntu11.3"> 0ubuntu11.3</label><br><label><input type="radio" name="distrover" value="0ubuntu3"> 0ubuntu3</label><br><label><input type="radio" name="distrover" value="0ubuntu3.11"> 0ubuntu3.11</label><br><label><input type="radio" name="distrover" value="0ubuntu3.12"> 0ubuntu3.12</label><br><label><input type="radio" name="distrover" value="0ubuntu8"> 0ubuntu8</label><br><label><input type="radio" name="distrover" value="0ubuntu8.6"> 0ubuntu8.6</label><br><label><input type="radio" name="distrover" value="0ubuntu9"> 0ubuntu9</label><br><label><input type="radio" name="distrover" value="0ubuntu9.18"> 0ubuntu9.18</label><br><label><input type="radio" name="distrover" value="2ubuntu2"> 2ubuntu2</label><br><label><input type="radio" name="distrover" value="3ubuntu1.5"> 3ubuntu1.5</label><br><label><input type="radio" name="distrover" value="3ubuntu1.6"> 3ubuntu1.6</label><br><label><input type="radio" name="distrover" value="6ubuntu1"> 6ubuntu1</label><br><label><input type="radio" name="distrover" value="6ubuntu1.2"> 6ubuntu1.2</label><br><label><input type="radio" name="distrover" value="fc17"> fc17</label><br><label><input type="radio" name="distrover" value="fc18"> fc18</label><br><label><input type="radio" name="distrover" value="fc19"> fc19</label><br><label><input type="radio" name="distrover" value="fc20"> fc20</label><br><label><input type="radio" name="distrover" value="fc21"> fc21</label><br><label><input type="radio" name="distrover" value="fc22"> fc22</label><br><label><input type="radio" name="distrover" value="fc25"> fc25</label><br><label><input type="radio" name="distrover" value="fc26"> fc26</label><br><label><input type="radio" name="distrover" value="fc27"> fc27</label><br><label><input type="radio" name="distrover" value="fc29"> fc29</label><br><label><input type="radio" name="distrover" value="fc30"> fc30</label><br><label><input type="radio" name="distrover" value="fc31"> fc31</label><br><label><input type="radio" name="distrover" value="fc32"> fc32</label><br><label><input type="radio" name="distrover" value="fc33"> fc33</label><br><label><input type="radio" name="distrover" value="fc34"> fc34</label><br><label><input type="radio" name="distrover" value="fc35"> fc35</label><br><label><input type="radio" name="distrover" value="fc37"> fc37</label><br><label><input type="radio" name="distrover" value="fc38"> fc38</label><br><label><input type="radio" name="distrover" value="fc39"> fc39</label><br><label><input type="radio" name="distrover" value="fc42"> fc42</label><br><label><input type="radio" name="distrover" value="fc43"> fc43</label><br>
             </div>
 
             <div class="option-group">
                 <h3>Glibc Version</h3>
-                <label><input type="radio" name="version" value="2.23"> 2.23</label><br><label><input type="radio" name="version" value="2.27"> 2.27</label><br><label><input type="radio" name="version" value="2.31"> 2.31</label><br><label><input type="radio" name="version" value="2.35"> 2.35</label><br><label><input type="radio" name="version" value="2.39"> 2.39</label><br><label><input type="radio" name="version" value="2.41"> 2.41</label><br><label><input type="radio" name="version" value="2.42"> 2.42</label><br>
+                <label><input type="radio" name="glibc" value="2.15"> 2.15</label><br><label><input type="radio" name="glibc" value="2.16"> 2.16</label><br><label><input type="radio" name="glibc" value="2.17"> 2.17</label><br><label><input type="radio" name="glibc" value="2.18"> 2.18</label><br><label><input type="radio" name="glibc" value="2.21"> 2.21</label><br><label><input type="radio" name="glibc" value="2.23"> 2.23</label><br><label><input type="radio" name="glibc" value="2.24"> 2.24</label><br><label><input type="radio" name="glibc" value="2.25"> 2.25</label><br><label><input type="radio" name="glibc" value="2.27"> 2.27</label><br><label><input type="radio" name="glibc" value="2.28"> 2.28</label><br><label><input type="radio" name="glibc" value="2.30"> 2.30</label><br><label><input type="radio" name="glibc" value="2.31"> 2.31</label><br><label><input type="radio" name="glibc" value="2.32"> 2.32</label><br><label><input type="radio" name="glibc" value="2.33"> 2.33</label><br><label><input type="radio" name="glibc" value="2.34"> 2.34</label><br><label><input type="radio" name="glibc" value="2.35"> 2.35</label><br><label><input type="radio" name="glibc" value="2.36"> 2.36</label><br><label><input type="radio" name="glibc" value="2.37"> 2.37</label><br><label><input type="radio" name="glibc" value="2.38"> 2.38</label><br><label><input type="radio" name="glibc" value="2.39"> 2.39</label><br><label><input type="radio" name="glibc" value="2.41"> 2.41</label><br><label><input type="radio" name="glibc" value="2.42"> 2.42</label><br>
             </div>
-            
+
             <div class="option-group">
                 <h3>Architecture</h3>
-                <label><input type="radio" name="arch" value="amd64"> amd64</label><br><label><input type="radio" name="arch" value="amd64v3"> amd64v3</label><br><label><input type="radio" name="arch" value="i386"> i386</label><br>
+                <label><input type="radio" name="arch" value="aarch64"> aarch64</label><br><label><input type="radio" name="arch" value="amd64"> amd64</label><br><label><input type="radio" name="arch" value="amd64v3"> amd64v3</label><br><label><input type="radio" name="arch" value="i386"> i386</label><br><label><input type="radio" name="arch" value="i686"> i686</label><br><label><input type="radio" name="arch" value="x86_64"> x86_64</label><br>
             </div>
+
         </div>
-        
+
         <div class="input-container">
             <input type="text" id="autocomplete-input" placeholder="Start typing..." autocomplete="off">
             <ul id="autocomplete-results"></ul>
