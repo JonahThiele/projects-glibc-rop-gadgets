@@ -354,41 +354,70 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsList = document.getElementById("autocomplete-results");
     const versionRadios = document.querySelectorAll('input[name="version"]');
     const archRadios = document.querySelectorAll('input[name="arch"]');
+    const distroRadios = document.querySelectorAll('input[name="distro"]');
 
     //Initialize Trie data structure 
     const trie = new Trie();
     let currentDataLoaded = false;
 
     // Helper functions to get selected glibc version
-    function getSelectedVersion() {
-        for (const radio of versionRadios) {
-            if (radio.checked) {
-                return radio.value;
-            }
+function getSelectedDistro() {
+    const radios = document.getElementsByName("distro");
+    for (const r of radios) {
+        if (r.checked) {
+            return r.value;
         }
-        return null;
     }
+    return null;
+}
 
-    // Helper functions to get selected architechture
-    function getSelectedArch() {
-        for (const radio of archRadios) {
-            if (radio.checked) {
-                return radio.value;
-            }
+function getSelectedDistroVersion() {
+    const radios = document.getElementsByName("distrover");
+    for (const r of radios) {
+        if (r.checked) {
+            return r.value;
         }
-        return null;
     }
+    return null;
+}
+
+function getSelectedGlibc() {
+    const radios = document.getElementsByName("glibc");
+    for (const r of radios) {
+        if (r.checked) {
+            return r.value;
+        }
+    }
+    return null;
+}
+
+function getSelectedArch() {
+    const radios = document.getElementsByName("arch");
+    for (const r of radios) {
+        if (r.checked) {
+            return r.value;
+        }
+    }
+    return null;
+}
+
 
     // Determine filename based on selected options + naming convention: "[arch]-[version].txt"
-    function getDataFilename() {
-        const version = getSelectedVersion();
-        const arch = getSelectedArch();
-        
-        if (version && arch) {
-            return `${arch}-${version}.txt`;
-        }
-        return null;
+function getDataFilename() {
+    const glibc = getSelectedGlibc();
+    const distrover = getSelectedDistroVersion();
+    const arch = getSelectedArch();
+    const distro = getSelectedDistro();
+
+    if (glibc && distrover && arch && distro) {
+        const path = `Gadgets/${distro}/${arch}/glibc_${glibc}_${distrover}_${arch}.txt`;
+        console.log("Loading gadget file:", path);
+        return path;
     }
+
+    return null;
+}
+
 
     // Load data from appropriate file based on selections
     function loadData() {
@@ -421,31 +450,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Add event listeners to radio buttons
-    versionRadios.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.checked) {
-                loadData();
-            }
-        });
+    // Add event listeners to radio buttons
+    distroRadios.forEach(radio => {
+        radio.addEventListener('change', loadData);
+    });
+
+    document.getElementsByName("distrover").forEach(radio => {
+        radio.addEventListener('change', loadData);
+    });
+
+    document.getElementsByName("glibc").forEach(radio => {
+        radio.addEventListener('change', loadData);
     });
 
     archRadios.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.checked) {
-                loadData();
-            }
-        });
+        radio.addEventListener('change', loadData);
     });
+
 
     /*
     // Handle input events for autocomplete
     const handleInputChange = function () {
         // Check if both version and architecture are selected
-        const versionSelected = getSelectedVersion();
+        const glibcSelected = getSelectedGlibc();
         const archSelected = getSelectedArch();
         
 	//If user has not selected both a version and an architechture, then show an error message
-        if (!versionSelected || !archSelected) {
+        if (!glibcSelected || !archSelected) {
             showNotification('Please select both a glibc version and architecture before searching', true);
             inputField.value = '';
             resultsList.style.display = 'none';
@@ -482,12 +513,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Modified handleInputChange function
     const handleInputChange = function () {
         // Check if both version and architecture are selected
-        const versionSelected = getSelectedVersion();
+        const glibcSelected = getSelectedGlibc();
         const archSelected = getSelectedArch();
-        
-	//If user has not selected both a version and an architechture, then show an error message
-        if (!versionSelected || !archSelected) {
-            showNotification('Please select both a glibc version and architecture before searching', true);
+        const distroSelected = getSelectedDistro();
+        const distroVersionSelected = getSelectedDistroVersion();
+
+	    //If user has not selected both a version and an architechture, then show an error message
+        if (!glibcSelected || !archSelected || !distroSelected || !distroVersionSelected) {
+            showNotification('Please select both a Distro, Distro Version, glibc version and architecture before searching', true);
             inputField.value = '';
             resultsList.style.display = 'none';
             resultsList.innerHTML = '';
@@ -500,11 +533,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-	//Check for input field changes
+	    //Check for input field changes
         const query = inputField.value.trim();
         console.log("Input changed:", query);
 
-	//If all input is cleared, then remove results box
+	    //If all input is cleared, then remove results box
         if (query.length === 0) {
             resultsList.style.display = 'none';
             resultsList.innerHTML = '';
@@ -514,10 +547,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Determine if the query is a regex (contains special regex chars)
         const isRegex = /[\\^$*+?.()|[\]{}]/.test(query);
 
-	// list of matching ROP gadgets
+	    // list of matching ROP gadgets
         let matches;
 
-	//Determine if we need to use 'regex search' or normal 'prefix search'
+	    //Determine if we need to use 'regex search' or normal 'prefix search'
         if (isRegex) {
             try {
                 matches = trie.searchRegex(query);
@@ -530,9 +563,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 showNotification('Invalid regular expression', true);
             }
         } else {
-            // Normal prefix search
+        // Normal prefix search
 	    showNotification('Searching by Prefix', false);
-            matches = trie.search(query);
+        matches = trie.searchRegex(query); //New version, now can search not by prefix, but its slow asf
+        //matches = trie.search(query); //Old version, always uses prefix search
+
         }
 
         displayResults(matches);
