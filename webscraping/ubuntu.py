@@ -67,7 +67,6 @@ url_prefix = "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/"
 # Where I want things to download to, you can change to whatever you want
 download_dir = '../GlibcDownloads'
 gadgets_dir = '../Gadgets/Ubuntu'
-
 #makes sure dir exists
 os.makedirs(download_dir, exist_ok=True)
 os.makedirs(gadgets_dir, exist_ok=True)
@@ -81,7 +80,6 @@ soup = BeautifulSoup(ubuntu_glibc.text, 'html.parser')
 # libc6-i386_<ver>_amd64.deb
 # libc6-amd64_<ver>_i386.deb
 # libc6-x32_<ver>_amd64.deb
-
 match = re.compile(
     r"^libc6(-[a-z0-9]+)?_[0-9].*_(amd64|amd64v3|i386|arm64|armhf|x32)\.deb$"
 )

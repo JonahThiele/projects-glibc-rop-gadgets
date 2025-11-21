@@ -347,6 +347,29 @@ function showNotification(message, isError = false) {
     }, 3000);
 }
 
+/*
+Things we need to do:
+Good place to start might be reading in a complete file name first
+and making sure the ROP search works from that before moving onto vvv
+
+since the old setup was all focused on radio buttons,
+most code under here I think needs to be changed.
+
+I think this would include the helper functions like getSelectedGlibc()
+
+Listeners for radio buttons
+
+Probably the entirety of the getDataFilename() func
+    That would require us to change the loadData() func as well
+    And also the handleInput change func
+
+Maybe the regex stuff? Might be nice to have both
+search bars try a prefix first and then switch to fuzzy
+    Maybe fuzzy search works best if we choose Fuse.js
+*/
+
+
+
 //Main event listenter
 document.addEventListener("DOMContentLoaded", function () {
     //Initialize html page elements
@@ -360,49 +383,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const trie = new Trie();
     let currentDataLoaded = false;
 
-    // Helper functions to get selected glibc version
+// Helper functions to get selected glibc version
 function getSelectedDistro() {
-    const radios = document.getElementsByName("distro");
-    for (const r of radios) {
-        if (r.checked) {
-            return r.value;
-        }
-    }
-    return null;
+    return document.getElementById("distro-input").value.trim() || null;
 }
 
+
 function getSelectedDistroVersion() {
-    const radios = document.getElementsByName("distrover");
-    for (const r of radios) {
-        if (r.checked) {
-            return r.value;
-        }
-    }
-    return null;
+    return document.getElementById("distroVersion-input").value.trim() || null;
 }
 
 function getSelectedGlibc() {
-    const radios = document.getElementsByName("glibc");
-    for (const r of radios) {
-        if (r.checked) {
-            return r.value;
-        }
-    }
-    return null;
+    return document.getElementById("glibc-input").value.trim() || null;
+
 }
 
 function getSelectedArch() {
-    const radios = document.getElementsByName("arch");
-    for (const r of radios) {
-        if (r.checked) {
-            return r.value;
-        }
-    }
-    return null;
+    return document.getElementById("arch-input").value.trim() || null;
+
 }
 
-
-    // Determine filename based on selected options + naming convention: "[arch]-[version].txt"
+// Determine filename based on selected options + naming convention: "[arch]-[version].txt"
 function getDataFilename() {
     const glibc = getSelectedGlibc();
     const distrover = getSelectedDistroVersion();
