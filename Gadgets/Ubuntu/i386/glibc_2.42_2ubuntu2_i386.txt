@@ -7934,7 +7934,7 @@ Gadgets
 0x000ee94f: add byte ptr [ebx - 0x6bf0a301], al; ret; 
 0x000eef7e: add byte ptr [ebx - 0x6bf0db08], al; ret; 
 0x0015f8fc: add byte ptr [ebx - 0x6bf0fd08], al; ret; 
-0x000534c0: add byte ptr [ebx - 0x6bf0fe01], al; ret 0xff83; 
+0x0004eee0: add byte ptr [ebx - 0x6bf0fe01], al; ret 0xff83; 
 0x000d36f6: add byte ptr [ebx - 0x6bf0fe02], al; ret 0xfe83; 
 0x000d29ca: add byte ptr [ebx - 0x6bf0fe06], al; ret 0xc639; 
 0x0004abb8: add byte ptr [ebx - 0x6bf0fe06], al; ret 0xde39; 
@@ -15605,7 +15605,7 @@ Gadgets
 0x0003b43d: call dword ptr [eax + 0x55]; 
 0x00031598: call dword ptr [eax + 0x56]; 
 0x0009a7e9: call dword ptr [eax + 0x56]; call 0x91160; mov eax, dword ptr [ebp - 0x3c]; add esp, 0x10; call eax; 
-0x0012886d: call dword ptr [eax + 0x57]; 
+0x0003480e: call dword ptr [eax + 0x57]; 
 0x000654c3: call dword ptr [eax + 0x65]; 
 0x00029a50: call dword ptr [eax + 0x68]; 
 0x000259d0: call dword ptr [eax + 0x6a]; 
@@ -21803,7 +21803,7 @@ Gadgets
 0x00036095: inc esp; and al, 8; mov edx, dword ptr [esp + 4]; mov eax, dword ptr [eax + 0x3c]; mov eax, dword ptr [eax + edx*4]; ret; 
 0x0003dcbc: inc esp; and al, 8; mov esp, ecx; jmp edx; 
 0x0010f03c: inc esp; and al, 8; mov word ptr [eax], dx; xor eax, eax; ret; 
-0x0019d950: inc esp; and al, 8; pop ebx; ret; 
+0x0008361d: inc esp; and al, 8; pop ebx; ret; 
 0x000c4ef8: inc esp; and al, 8; pop edi; ret; 
 0x000bffc3: inc esp; and al, 8; pop esi; ret; 
 0x0007cf87: inc esp; and al, 8; push eax; push esi; call dword ptr [ebx + 0x48]; 
@@ -24669,7 +24669,7 @@ Gadgets
 0x00172277: jmp dword ptr [ebx + 0xf]; 
 0x00024006: jmp dword ptr [ebx + 8]; 
 0x00032943: jmp dword ptr [ebx]; 
-0x0002595a: jmp dword ptr [ecx]; 
+0x0003281a: jmp dword ptr [ecx]; 
 0x00095a3a: jmp dword ptr [ecx]; ret; 
 0x0013423f: jmp dword ptr [edi + 0x6d]; 
 0x0005ed64: jmp dword ptr [edi + 0xf]; 
@@ -33178,7 +33178,7 @@ Gadgets
 0x000bc55a: movq qword ptr [edi], mm0; movlpd qword ptr [edi + 0x10], xmm2; pop edi; pop esi; pop ebx; ret; 
 0x000bc51a: movq qword ptr [edi], mm0; movlpd qword ptr [edi + 0xe], xmm3; pop edi; pop esi; pop ebx; ret; 
 0x000bc53a: movq qword ptr [edi], mm0; movlpd qword ptr [edi + 0xf], xmm3; pop edi; pop esi; pop ebx; ret; 
-0x000bc791: movq qword ptr [edi], mm0; pop edi; pop esi; pop ebx; ret; 
+0x000bc465: movq qword ptr [edi], mm0; pop edi; pop esi; pop ebx; ret; 
 0x0019654d: movq qword ptr [edx + 4], xmm0; mov ecx, dword ptr [eax]; mov dword ptr [edx], ecx; mov eax, dword ptr [esp + 8]; pop ebx; ret; 
 0x0019307f: movq qword ptr [edx - 0x10], mm0; mov eax, dword ptr [esp + 8]; pop ebx; ret; 
 0x00198110: movq qword ptr [edx - 0x10], mm0; mov eax, edx; pop ebx; ret; 
@@ -36324,7 +36324,7 @@ Gadgets
 0x000299a7: pop ebx; pop esi; pop edi; pop ebp; jmp eax; 
 0x00063452: pop ebx; pop esi; pop edi; pop ebp; mov eax, ecx; ret; 
 0x0003c40f: pop ebx; pop esi; pop edi; pop ebp; ret 4; 
-0x000861f9: pop ebx; pop esi; pop edi; pop ebp; ret; 
+0x00024455: pop ebx; pop esi; pop edi; pop ebp; ret; 
 0x000a9deb: pop ebx; pop esi; pop edi; ret 4; 
 0x00030b95: pop ebx; pop esi; pop edi; ret; 
 0x000c3c30: pop ebx; pop esi; pop edi; xor eax, eax; ret; 
@@ -36862,7 +36862,7 @@ Gadgets
 0x001a73c1: pop esi; pop edi; pop ebp; pop ebx; ret; 
 0x001a5693: pop esi; pop edi; pop ebp; pop ebx; xor eax, eax; ret; 
 0x0003c410: pop esi; pop edi; pop ebp; ret 4; 
-0x000407b0: pop esi; pop edi; pop ebp; ret; 
+0x00024456: pop esi; pop edi; pop ebp; ret; 
 0x001a0750: pop esi; pop edi; pop ebx; pop ebp; xor eax, eax; ret; 
 0x001a6e5d: pop esi; pop edi; pop ebx; ret; 
 0x000a9dec: pop esi; pop edi; ret 4; 
@@ -43956,7 +43956,7 @@ Gadgets
 0x00090db1: stc; jmp dword ptr [ebp - 0x5f]; 
 0x0003a985: stc; jmp dword ptr [ebp - 0x75]; 
 0x0012be44: stc; jmp dword ptr [ecx]; 
-0x001a33b8: stc; jmp dword ptr [esi + 0xf]; 
+0x001a09a6: stc; jmp dword ptr [esi + 0xf]; 
 0x0008624a: stc; jmp dword ptr [esi - 0x70]; 
 0x000284f3: stc; jmp dword ptr [esi - 0x77]; 
 0x0005f347: stc; jmp ptr [eax + 0x17]; add al, byte ptr [eax]; add byte ptr [eax - 0x73], dl; xchg byte ptr [ecx + edx*2 - 7], cl; call dword ptr [eax - 0x18]; 

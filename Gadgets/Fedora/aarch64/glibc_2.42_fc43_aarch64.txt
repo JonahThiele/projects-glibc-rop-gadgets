@@ -1265,7 +1265,7 @@ Gadgets
 0x0000000000051b54: autiasp; orr x1, x1, #0x10000000000000; str x1, [x0]; mov x0, #1; ret; 
 0x000000000003b218: autiasp; orr x1, x1, #0x3fe0000000000000; fmov d0, x1; str w2, [x0]; ret; 
 0x000000000003acfc: autiasp; orr x1, x2, #0x3ffe000000000000; fmov d0, x0; fmov v0.d[1], x1; ret; 
-0x00000000000a16dc: autiasp; ret; 
+0x0000000000025e60: autiasp; ret; 
 0x000000000011f988: autiasp; ret; add x0, x19, #8; str x0, [sp, #0x38]; blr x21; 
 0x00000000001404dc: autiasp; ret; bl #0xcf340; add x1, sp, #0x18; blr x20; 
 0x00000000000e3198: autiasp; ret; ldr x1, [x25, #8]; cbz x1, #0xe30ec; blr x1; 
@@ -1286,7 +1286,7 @@ Gadgets
 0x0000000000136aac: autiasp; str w0, [x1, #0x994]; ret; 
 0x000000000008c094: autiasp; str w0, [x1]; mov w0, #0; ret; 
 0x0000000000137ec0: autiasp; str w0, [x1]; mov x0, #1; stp x0, x2, [x1, #8]; ret; 
-0x00000000000f0c2c: autiasp; str w0, [x2, x1]; mov w0, #-1; ret; 
+0x000000000003c060: autiasp; str w0, [x2, x1]; mov w0, #-1; ret; 
 0x0000000000026724: autiasp; str w0, [x2, x1]; mov x0, #-1; ret; 
 0x00000000000f05b0: autiasp; str w0, [x4, #8]; ret; 
 0x00000000000e4674: autiasp; str w1, [x0, #0x108]; mov w0, #0; ret; 
@@ -4669,7 +4669,7 @@ Gadgets
 0x000000000007fbe4: ldp x19, x20, [sp, #0x40]; ldp x21, x22, [sp, #0x50]; add sp, sp, #0x70; autiasp; ret; 
 0x000000000007e2e8: ldp x19, x20, [sp, #0x40]; ldp x21, x22, [sp, #0x50]; add sp, sp, #0x80; autiasp; ret; 
 0x00000000001071a8: ldp x19, x20, [sp, #0x40]; ldp x21, x22, [sp, #0x50]; add sp, sp, #0x90; autiasp; ret; 
-0x000000000012c300: ldp x19, x20, [sp, #0x40]; ldp x21, x22, [sp, #0x50]; ldp x23, x24, [sp, #0x60]; add sp, sp, #0x70; autiasp; ret; 
+0x0000000000030d48: ldp x19, x20, [sp, #0x40]; ldp x21, x22, [sp, #0x50]; ldp x23, x24, [sp, #0x60]; add sp, sp, #0x70; autiasp; ret; 
 0x000000000008836c: ldp x19, x20, [sp, #0x40]; ldp x21, x22, [sp, #0x50]; ldp x23, x24, [sp, #0x60]; add sp, sp, #0x80; autiasp; ret; 
 0x0000000000088634: ldp x19, x20, [sp, #0x40]; ldp x21, x22, [sp, #0x50]; ldp x25, x26, [sp, #0x70]; add sp, sp, #0x80; autiasp; ret; 
 0x000000000010c4c4: ldp x19, x20, [sp, #0x40]; ldp x21, x22, [sp, #0x50]; ldp x25, x26, [sp, #0x70]; add sp, sp, #0x90; autiasp; ret; 
@@ -5142,7 +5142,7 @@ Gadgets
 0x0000000000029728: ldp x27, x28, [sp, #0xa0]; add sp, sp, #0xb0; autiasp; ret; 
 0x000000000002d754: ldp x27, x28, [sp, #0xa0]; ldp x0, x1, [sp, #0x10]; ldp w7, w6, [sp, #0x28]; add sp, sp, #0xb0; autiasp; br x16; 
 0x000000000002a4c0: ldp x27, x28, [sp, #0xa0]; ldr x16, [sp, #8]; ldr x0, [sp, #0x18]; add sp, sp, #0xb0; autiasp; br x16; 
-0x000000000012b1b8: ldp x27, x28, [sp, #0xb0]; add sp, sp, #0xc0; autiasp; ret; 
+0x0000000000029dac: ldp x27, x28, [sp, #0xb0]; add sp, sp, #0xc0; autiasp; ret; 
 0x0000000000029f18: ldp x27, x28, [sp, #0xb0]; ldr x0, [sp]; ldr x1, [sp, #0x20]; add sp, sp, #0xc0; autiasp; br x16; 
 0x00000000000bc868: ldp x27, x28, [sp, #0xc0]; add sp, sp, #0xd0; autiasp; ret; 
 0x000000000002b4ac: ldp x27, x28, [sp, #0xd0]; add sp, sp, #0xe0; autiasp; ret; 
@@ -7891,7 +7891,7 @@ Gadgets
 0x00000000000f2820: mov x0, #0; ldr x21, [sp, #0x20]; ldp x29, x30, [sp], #0x30; autiasp; ret; 
 0x0000000000088f88: mov x0, #0; mov x29, sp; ldp x29, x30, [sp], #0x10; autiasp; ret; 
 0x0000000000105ed8: mov x0, #0; orr w6, w6, w2; str w6, [x5]; ldp x29, x30, [sp], #0x30; autiasp; ret; 
-0x00000000000e1ffc: mov x0, #0; ret; 
+0x000000000003a014: mov x0, #0; ret; 
 0x0000000000115cc0: mov x0, #0; str q31, [x3]; b #0x115c5c; mov x0, #0; ret; 
 0x00000000000a8138: mov x0, #0; str x3, [x2]; ret; 
 0x00000000000a383c: mov x0, #0; str x4, [x5]; str xzr, [x5, #8]; ret; 
@@ -9380,7 +9380,7 @@ Gadgets
 0x00000000000abf2c: rbit x5, x5; clz x5, x5; cmp x2, x5, lsr #2; add x0, x0, x5, lsr #2; csel x0, x0, xzr, hi; ret; 
 0x00000000000abfa4: rbit x5, x5; clz x5, x5; cmp x4, x5, lsr #2; add x0, x3, x5, lsr #2; csel x0, x0, xzr, hi; ret; 
 0x00000000000a5ca0: ret x15; 
-0x00000000000973a8: ret; 
+0x0000000000025e64: ret; 
 0x000000000011f98c: ret; add x0, x19, #8; str x0, [sp, #0x38]; blr x21; 
 0x00000000000f96c4: ret; b #0x26700; nop; mov x29, #0; mov x0, x12; blr x10; 
 0x00000000000f9934: ret; b #0x26700; nop; mov x29, #0; mov x0, x12; blr x11; 

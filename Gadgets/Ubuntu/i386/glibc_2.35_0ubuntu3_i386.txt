@@ -13855,7 +13855,7 @@ Gadgets
 0x00159796: call dword ptr [eax]; mov esi, eax; mov eax, dword ptr [ebx + 4]; add esp, 0x14; push ebx; call dword ptr [eax + 0x10]; 
 0x0012db69: call dword ptr [ebp + 0x14]; 
 0x00072b3c: call dword ptr [ebp + 0x1c]; 
-0x0010dca0: call dword ptr [ebp + 0x24]; 
+0x0007370d: call dword ptr [ebp + 0x24]; 
 0x000806fa: call dword ptr [ebp + 0x2c]; 
 0x0007fce7: call dword ptr [ebp + 0x30]; 
 0x00173023: call dword ptr [ebp + 0x3c]; 
@@ -22641,7 +22641,7 @@ Gadgets
 0x00020154: jmp dword ptr [ebx - 0x10]; nop word ptr [eax + eax]; endbr32; jmp dword ptr [ebx + 0xc]; 
 0x0015b663: jmp dword ptr [ebx - 0x41]; 
 0x0002e25d: jmp dword ptr [ebx]; 
-0x0014c59c: jmp dword ptr [ecx]; 
+0x0002e63a: jmp dword ptr [ecx]; 
 0x000740e1: jmp dword ptr [ecx]; ret 0xc483; 
 0x00126c02: jmp dword ptr [edi + 0x6d]; 
 0x0005472c: jmp dword ptr [edi + 0x75]; 
@@ -27514,7 +27514,7 @@ Gadgets
 0x00198001: mov eax, 1; jg 0x198010; neg eax; ret; 
 0x000c9bf0: mov eax, 1; jg 0xc9bf9; neg eax; ret; 
 0x000b536b: mov eax, 1; mov ecx, 0xffffffff; cmovb eax, ecx; ret; 
-0x001641c5: mov eax, 1; pop ebx; pop esi; pop edi; ret; 
+0x00072204: mov eax, 1; pop ebx; pop esi; pop edi; ret; 
 0x0010e452: mov eax, 1; pop ebx; pop esi; ret; 
 0x001198ae: mov eax, 1; pop ebx; ret; 
 0x0004ae80: mov eax, 1; pop esi; pop edi; ret; 
@@ -33439,7 +33439,7 @@ Gadgets
 0x00035d34: pop ebx; pop esi; pop edi; fsubp st(1); ret; 
 0x00024c64: pop ebx; pop esi; pop edi; pop ebp; jmp eax; 
 0x0003671c: pop ebx; pop esi; pop edi; pop ebp; ret 4; 
-0x00127930: pop ebx; pop esi; pop edi; pop ebp; ret; 
+0x000217dc: pop ebx; pop esi; pop edi; pop ebp; ret; 
 0x00140bbd: pop ebx; pop esi; pop edi; ret 4; 
 0x00021e76: pop ebx; pop esi; pop edi; ret; 
 0x000b3920: pop ebx; pop esi; pop edi; xor eax, eax; ret; 
@@ -33859,7 +33859,7 @@ Gadgets
 0x00193531: pop esi; pop edi; pop ebp; pop ebx; ret; 
 0x00191813: pop esi; pop edi; pop ebp; pop ebx; xor eax, eax; ret; 
 0x0003671d: pop esi; pop edi; pop ebp; ret 4; 
-0x00080a20: pop esi; pop edi; pop ebp; ret; 
+0x000217dd: pop esi; pop edi; pop ebp; ret; 
 0x0018c8d0: pop esi; pop edi; pop ebx; pop ebp; xor eax, eax; ret; 
 0x0018998b: pop esi; pop edi; pop ebx; ret; 
 0x00140bbe: pop esi; pop edi; ret 4; 

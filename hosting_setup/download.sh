@@ -1,23 +1,24 @@
 #!/bin/bash
 
-source /home/user/venv/bin/activate
-P=$(pwd)
+# Use explicit paths to setup everything
+export HOME=/home/downloader
+export PATH=/usr/local/bin:/usr/bin:/bin
 
-cd ../webscraping
+# Move to project directory instead of cron's default /
+cd /home/downloader/projects-glibc-rop-gadgets/webscraping || exit
 
-git pull origin
+# sh does have source so use .
+. /home/downloader/venv/bin/activate
 
-#run every python file in here
-#this might not be secure but I don't know yet
-for f in *.py; 
-do 
-    python "$f"; 
+#pull main
+/usr/bin/git pull origin main
+
+#run all web scraping scripts
+for f in *.py; do
+    /home/downloader/venv/bin/python "$f"
 done
 
-# commit and push back to origin also probably really dangerous
-git add .
-git commit -m "download from repos"
-git push origin
-
-#return back
-cd $P
+# add all changes and push to repo
+/usr/bin/git add --all
+/usr/bin/git commit -m "download from repos" || true
+/usr/bin/git push origin main

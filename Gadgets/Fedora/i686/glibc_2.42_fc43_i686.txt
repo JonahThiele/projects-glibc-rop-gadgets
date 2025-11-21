@@ -883,7 +883,7 @@ Gadgets
 0x000000000010b794: and w1, w1, #0xffffff; orr w0, w1, w0, lsl #24; ldp x29, x30, [sp], #0x10; autiasp; rev w0, w0; ret; 
 0x00000000000839d8: and w1, w1, #0xffffffcf; str w1, [x0]; ret; 
 0x000000000007d3e8: and w1, w1, #0xffffffef; str w1, [x19]; ldr x19, [sp, #0x10]; ldp x29, x30, [sp], #0x30; autiasp; ret; 
-0x000000000008809c: and w1, w1, #0xffffffef; str w1, [x2]; ldp x29, x30, [sp], #0x20; autiasp; ret; 
+0x000000000007d488: and w1, w1, #0xffffffef; str w1, [x2]; ldp x29, x30, [sp], #0x20; autiasp; ret; 
 0x000000000007d4b4: and w1, w1, #0xffffffef; str w1, [x2]; ret; 
 0x000000000008c5d8: and w1, w1, #0xfffffffb; str w1, [x0, #8]; mov w0, #0; ret; 
 0x0000000000138004: and w1, w1, #0xfffffffc; add w1, w1, w2; ldr x2, [x0, #8]; add w1, w1, #0x28; ldr x2, [x2, #0x30]; blr x2; 
@@ -1265,7 +1265,7 @@ Gadgets
 0x0000000000051b54: autiasp; orr x1, x1, #0x10000000000000; str x1, [x0]; mov x0, #1; ret; 
 0x000000000003b218: autiasp; orr x1, x1, #0x3fe0000000000000; fmov d0, x1; str w2, [x0]; ret; 
 0x000000000003acfc: autiasp; orr x1, x2, #0x3ffe000000000000; fmov d0, x0; fmov v0.d[1], x1; ret; 
-0x00000000000a16dc: autiasp; ret; 
+0x0000000000025e60: autiasp; ret; 
 0x000000000011f988: autiasp; ret; add x0, x19, #8; str x0, [sp, #0x38]; blr x21; 
 0x00000000001404dc: autiasp; ret; bl #0xcf340; add x1, sp, #0x18; blr x20; 
 0x00000000000e3198: autiasp; ret; ldr x1, [x25, #8]; cbz x1, #0xe30ec; blr x1; 
@@ -5674,7 +5674,7 @@ Gadgets
 0x0000000000085598: ldp x29, x30, [sp], #0x20; autiasp; mov x16, x1; br x16; 
 0x0000000000085530: ldp x29, x30, [sp], #0x20; autiasp; mov x16, x2; br x16; 
 0x0000000000144418: ldp x29, x30, [sp], #0x20; autiasp; mov x16, x5; br x16; 
-0x0000000000053690: ldp x29, x30, [sp], #0x20; autiasp; ret; 
+0x0000000000025e5c: ldp x29, x30, [sp], #0x20; autiasp; ret; 
 0x000000000007cf50: ldp x29, x30, [sp], #0x20; autiasp; stp xzr, xzr, [x0, #0x40]; str xzr, [x0, #0x50]; ret; 
 0x0000000000145b0c: ldp x29, x30, [sp], #0x20; autiasp; str wzr, [x0]; ret; 
 0x00000000001391fc: ldp x29, x30, [sp], #0x20; autiasp; sub x1, x1, x2; add w0, w1, w0; ret; 
@@ -9380,7 +9380,7 @@ Gadgets
 0x00000000000abf2c: rbit x5, x5; clz x5, x5; cmp x2, x5, lsr #2; add x0, x0, x5, lsr #2; csel x0, x0, xzr, hi; ret; 
 0x00000000000abfa4: rbit x5, x5; clz x5, x5; cmp x4, x5, lsr #2; add x0, x3, x5, lsr #2; csel x0, x0, xzr, hi; ret; 
 0x00000000000a5ca0: ret x15; 
-0x00000000000973a8: ret; 
+0x0000000000025e64: ret; 
 0x000000000011f98c: ret; add x0, x19, #8; str x0, [sp, #0x38]; blr x21; 
 0x00000000000f96c4: ret; b #0x26700; nop; mov x29, #0; mov x0, x12; blr x10; 
 0x00000000000f9934: ret; b #0x26700; nop; mov x29, #0; mov x0, x12; blr x11; 

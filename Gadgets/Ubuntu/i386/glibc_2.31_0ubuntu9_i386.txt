@@ -6449,7 +6449,7 @@ Gadgets
 0x000d98a0: add byte ptr [ebx + 0x5e5b1cc4], 0x5f; pop ebp; ret; 
 0x000363be: add byte ptr [ebx + 0x5e5b1cc4], al; pop edi; pop ebp; ret; 
 0x000f6413: add byte ptr [ebx + 0x5e5b24c4], al; ret; 
-0x000cbc5a: add byte ptr [ebx + 0x5e5b2cc4], al; pop edi; pop ebp; ret; 
+0x0001faf4: add byte ptr [ebx + 0x5e5b2cc4], al; pop edi; pop ebp; ret; 
 0x000777d5: add byte ptr [ebx + 0x5e5b30c4], al; pop edi; ret; 
 0x0012e839: add byte ptr [ebx + 0x5e5b34c4], al; ret; 
 0x0001e96c: add byte ptr [ebx + 0x5e5b3cc4], al; pop edi; pop ebp; ret; 
@@ -12625,7 +12625,7 @@ Gadgets
 0x0012df8b: call dword ptr [eax + 4]; 
 0x001302c0: call dword ptr [eax + 8]; 
 0x000e413b: call dword ptr [eax - 0x15]; 
-0x0003f082: call dword ptr [eax - 0x18]; 
+0x0001d1fc: call dword ptr [eax - 0x18]; 
 0x000a7486: call dword ptr [eax - 0x18]; adc ebx, dword ptr [ebx - 8]; jmp dword ptr [esi - 0x70]; 
 0x000cbd93: call dword ptr [eax - 0x18]; add al, 6; add byte ptr [ebx - 0x10745], cl; jmp dword ptr [ebp - 0x5f]; 
 0x00136714: call dword ptr [eax - 0x18]; and eax, 0x83ffef75; les edx, ptr [eax]; add esp, 8; pop ebx; ret; 
@@ -21108,7 +21108,7 @@ Gadgets
 0x00063c95: jmp dword ptr [edx]; 
 0x00052d2b: jmp dword ptr [esi + 0x3d]; 
 0x000d987d: jmp dword ptr [esi + 0xb]; 
-0x0016632c: jmp dword ptr [esi + 0xf]; 
+0x0001d0d9: jmp dword ptr [esi + 0xf]; 
 0x00096b34: jmp dword ptr [esi + 0xf]; adc al, byte ptr [ecx]; movlpd qword ptr [edx], xmm0; mov eax, edx; pop ebx; ret; 
 0x00168fd2: jmp dword ptr [esi + 0xf]; out dx, eax; shl dword ptr [esi + 0xf], 1; cmp byte ptr [edi], dl; ret 0x3273; 
 0x00168fb8: jmp dword ptr [esi + 0xf]; out dx, eax; shl dword ptr [esi + 0xf], 1; cmp byte ptr [edi], dl; ret 0x4c73; 
@@ -30479,7 +30479,7 @@ Gadgets
 0x001479be: or dword ptr [eax], edx; xor eax, eax; ret; 
 0x0014a2d9: or dword ptr [ebp + 0x33], esp; adc eax, 0x18; call edx; 
 0x0012b3ff: or dword ptr [ebp + 0x33], esp; adc eax, 0x18; push edx; call eax; 
-0x0002f172: or dword ptr [ebp + 0x33], esp; add eax, 0x18; call eax; 
+0x0001ef1d: or dword ptr [ebp + 0x33], esp; add eax, 0x18; call eax; 
 0x00081240: or dword ptr [ebp + 0x33], esp; add eax, 0x18; jmp eax; 
 0x00081240: or dword ptr [ebp + 0x33], esp; add eax, 0x18; jmp eax; lea esi, [esi]; xor eax, eax; ret; 
 0x0014810c: or dword ptr [ebp + 0x33], esp; add eax, 0x18; lea ebx, [esp + 0x28]; push ebx; call eax; 
@@ -31315,7 +31315,7 @@ Gadgets
 0x000d869c: pop edi; pop ebp; neg eax; ret; 
 0x00169942: pop edi; pop ebp; pop ebx; ret; 
 0x00167c04: pop edi; pop ebp; pop ebx; xor eax, eax; ret; 
-0x00088522: pop edi; pop ebp; ret 4; 
+0x0003443e: pop edi; pop ebp; ret 4; 
 0x0001e972: pop edi; pop ebp; ret; 
 0x00162ca1: pop edi; pop ebx; pop ebp; xor eax, eax; ret; 
 0x00095892: pop edi; pop ebx; ret; 

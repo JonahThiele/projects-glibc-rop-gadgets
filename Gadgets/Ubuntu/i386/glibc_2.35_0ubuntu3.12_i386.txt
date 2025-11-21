@@ -22627,7 +22627,7 @@ Gadgets
 0x0015b753: jmp dword ptr [ebx - 0x41]; 
 0x0002e25d: jmp dword ptr [ebx]; 
 0x00036b4d: jmp dword ptr [ecx + 0x16]; 
-0x0014c66c: jmp dword ptr [ecx]; 
+0x0002e63a: jmp dword ptr [ecx]; 
 0x00074121: jmp dword ptr [ecx]; ret 0xc483; 
 0x00126d22: jmp dword ptr [edi + 0x6d]; 
 0x0005474c: jmp dword ptr [edi + 0x75]; 
@@ -24476,7 +24476,7 @@ Gadgets
 0x001662d6: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax + 0x20]; 
 0x0016632b: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax + 0x24]; 
 0x0016599b: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax + 4]; 
-0x00165a36: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax]; 
+0x00165946: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax]; 
 0x000d72d5: lea edx, [esp + 0xc]; push edx; push ebx; call eax; 
 0x00165cf6: lea edx, [esp + 0xc]; push edx; push ecx; call dword ptr [eax + 4]; 
 0x00115af4: lea edx, [esp + 4]; mov eax, 0xdd; mov ecx, 0x10; call dword ptr gs:[0x10]; 
@@ -33430,7 +33430,7 @@ Gadgets
 0x00035d34: pop ebx; pop esi; pop edi; fsubp st(1); ret; 
 0x00024c64: pop ebx; pop esi; pop edi; pop ebp; jmp eax; 
 0x0003671c: pop ebx; pop esi; pop edi; pop ebp; ret 4; 
-0x00122596: pop ebx; pop esi; pop edi; pop ebp; ret; 
+0x000217dc: pop ebx; pop esi; pop edi; pop ebp; ret; 
 0x00140c8d: pop ebx; pop esi; pop edi; ret 4; 
 0x00021e76: pop ebx; pop esi; pop edi; ret; 
 0x000b39d0: pop ebx; pop esi; pop edi; xor eax, eax; ret; 
@@ -38332,7 +38332,7 @@ Gadgets
 0x0005b7dc: ret 6; 
 0x0002685f: ret 7; 
 0x000c93da: ret 8; 
-0x0017a5fb: ret; 
+0x000202cb: ret; 
 0x000df365: retf 0; add byte ptr [ebp - 1], ah; adc eax, 0x10; ret; 
 0x0015b224: retf 0x1089; mov eax, 1; add esp, 8; pop ebx; ret; 
 0x00099a27: retf 0x13; add byte ptr [ebx - 0x72d3db84], cl; xchg dword ptr [ebx + edx*4 - 7], ecx; dec dword ptr [ebp - 0x6bf3a69]; call dword ptr [eax - 0x73]; 

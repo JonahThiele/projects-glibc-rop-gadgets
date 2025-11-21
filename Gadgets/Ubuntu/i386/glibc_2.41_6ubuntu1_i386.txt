@@ -11530,7 +11530,7 @@ Gadgets
 0x00053558: add esp, 0xc; movzx eax, al; ret; 
 0x0008144c: add esp, 0xc; pop ebx; pop esi; pop edi; pop ebp; jmp eax; 
 0x000a7ca0: add esp, 0xc; pop ebx; pop esi; pop edi; pop ebp; ret 4; 
-0x000a7873: add esp, 0xc; pop ebx; pop esi; pop edi; pop ebp; ret; 
+0x000270dc: add esp, 0xc; pop ebx; pop esi; pop edi; pop ebp; ret; 
 0x0016c89f: add esp, 0xc; push dword ptr [ebx + 0x229c]; push dword ptr [esp + 0x10]; push esi; call dword ptr [eax + 0xc]; 
 0x001351eb: add esp, 0xc; push eax; push 0; push 0x2000002; call dword ptr [ebp + 0x14]; 
 0x00137070: add esp, 0xc; push eax; push dword ptr [ebp - 0x4c]; push 0x2000005; call dword ptr [ebx + 0x14]; 
@@ -21659,7 +21659,7 @@ Gadgets
 0x001992da: iretd; add edx, edi; lea eax, [edi + eax + 0xc]; pop edi; add ebx, dword ptr [ebx + ecx*4]; jmp ebx; 
 0x0019936a: iretd; add edx, edi; lea eax, [edi + eax + 0xd]; pop edi; add ebx, dword ptr [ebx + ecx*4]; jmp ebx; 
 0x001993fa: iretd; add edx, edi; lea eax, [edi + eax + 0xe]; pop edi; add ebx, dword ptr [ebx + ecx*4]; jmp ebx; 
-0x0019a46a: iretd; add edx, edi; lea eax, [edi + eax + 0xf]; pop edi; add ebx, dword ptr [ebx + ecx*4]; jmp ebx; 
+0x0019948a: iretd; add edx, edi; lea eax, [edi + eax + 0xf]; pop edi; add ebx, dword ptr [ebx + ecx*4]; jmp ebx; 
 0x00198caa: iretd; add edx, edi; lea eax, [edi + eax + 1]; pop edi; add ebx, dword ptr [ebx + ecx*4]; jmp ebx; 
 0x00198d3a: iretd; add edx, edi; lea eax, [edi + eax + 2]; pop edi; add ebx, dword ptr [ebx + ecx*4]; jmp ebx; 
 0x00198dca: iretd; add edx, edi; lea eax, [edi + eax + 3]; pop edi; add ebx, dword ptr [ebx + ecx*4]; jmp ebx; 
@@ -24206,7 +24206,7 @@ Gadgets
 0x00023006: jmp dword ptr [ebx + 8]; 
 0x0016f4a3: jmp dword ptr [ebx - 0x41]; 
 0x000d6ed4: jmp dword ptr [ebx]; 
-0x00024722: jmp dword ptr [ecx]; 
+0x00031748: jmp dword ptr [ecx]; 
 0x00131500: jmp dword ptr [edi + 0x6d]; 
 0x0005d947: jmp dword ptr [edi + 0xf]; 
 0x0003df3d: jmp dword ptr [edi]; 
@@ -25744,7 +25744,7 @@ Gadgets
 0x001a9494: lea eax, [eax + 7]; pop edi; ret; 
 0x001a9555: lea eax, [eax + 8]; pop edi; ret; 
 0x001a9565: lea eax, [eax + 9]; pop edi; ret; 
-0x0009c76c: lea eax, [eax + eax + 2]; ret; 
+0x0009c6fc: lea eax, [eax + eax + 2]; ret; 
 0x0009b356: lea eax, [eax + eax - 1]; pop esi; pop edi; pop ebp; ret; 
 0x0005373b: lea eax, [eax + eax*8 + 6]; call 0x53700; jmp eax; 
 0x00054f90: lea eax, [eax + eax*8]; add eax, dword ptr [esp]; add eax, 0xd; add esp, 4; jmp eax; 
@@ -35601,7 +35601,7 @@ Gadgets
 0x00028784: pop ebx; pop esi; pop edi; pop ebp; jmp eax; 
 0x000620dc: pop ebx; pop esi; pop edi; pop ebp; mov eax, ecx; ret; 
 0x0003aebf: pop ebx; pop esi; pop edi; pop ebp; ret 4; 
-0x001471ca: pop ebx; pop esi; pop edi; pop ebp; ret; 
+0x00023401: pop ebx; pop esi; pop edi; pop ebp; ret; 
 0x0013c53c: pop ebx; pop esi; pop edi; ret 4; 
 0x000255a6: pop ebx; pop esi; pop edi; ret; 
 0x000c1a10: pop ebx; pop esi; pop edi; xor eax, eax; ret; 

@@ -9740,7 +9740,7 @@ Gadgets
 0x00139679: add esp, 0x1c; not eax; shr eax, 0x1f; ret; 
 0x0006df0b: add esp, 0x1c; pop ebx; pop esi; pop edi; pop ebp; jmp eax; 
 0x001219d7: add esp, 0x1c; pop ebx; pop esi; pop edi; pop ebp; ret 4; 
-0x00134881: add esp, 0x1c; pop ebx; pop esi; pop edi; pop ebp; ret; 
+0x0001be17: add esp, 0x1c; pop ebx; pop esi; pop edi; pop ebp; ret; 
 0x00030272: add esp, 0x1c; ret 4; 
 0x0001b044: add esp, 0x1c; ret; 
 0x0014a6a2: add esp, 0x1c; sar eax, 0x1f; ret; 
@@ -12810,7 +12810,7 @@ Gadgets
 0x0012a45b: call dword ptr [eax + 4]; 
 0x0012c790: call dword ptr [eax + 8]; 
 0x000e028b: call dword ptr [eax - 0x15]; 
-0x00113282: call dword ptr [eax - 0x18]; 
+0x000191fc: call dword ptr [eax - 0x18]; 
 0x000771a7: call dword ptr [eax - 0x18]; add bl, byte ptr [edi]; sti; jmp dword ptr [esi - 0x70]; 
 0x00051b16: call dword ptr [eax - 0x18]; add edi, edi; or dword ptr [eax], eax; add esp, 0x1c; ret; 
 0x000a2d6b: call dword ptr [eax - 0x18]; arpl ax, di; jmp dword ptr [esi - 0x70]; 
@@ -36085,7 +36085,7 @@ Gadgets
 0x0014d721: ret 0xe0c1; 
 0x000279fe: ret 0xe183; 
 0x0004253e: ret 0xe1c1; 
-0x00169415: ret 0xe280; 
+0x00168885: ret 0xe280; 
 0x0002eab2: ret 0xe281; 
 0x00020af7: ret 0xe283; 
 0x000d8057: ret 0xe2c1; 
@@ -36306,7 +36306,7 @@ Gadgets
 0x0001affa: ret 7; 
 0x000b484a: ret 8; 
 0x0003bdb4: ret 9; 
-0x0010f74c: ret; 
+0x0001922e: ret; 
 0x000ca025: retf 0; add byte ptr [ebp - 1], ah; adc eax, 0x10; ret; 
 0x0012bb98: retf 0; add esp, 0x10; add esp, 4; pop ebx; pop esi; ret; 
 0x0012d004: retf 0x1089; mov eax, 1; add esp, 8; pop ebx; ret; 

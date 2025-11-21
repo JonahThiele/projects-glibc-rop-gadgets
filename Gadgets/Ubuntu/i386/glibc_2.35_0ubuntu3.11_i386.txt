@@ -24476,7 +24476,7 @@ Gadgets
 0x001662d6: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax + 0x20]; 
 0x0016632b: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax + 0x24]; 
 0x0016599b: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax + 4]; 
-0x00165a36: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax]; 
+0x00165946: lea edx, [esp + 0xc]; push edx; push ebx; call dword ptr [eax]; 
 0x000d72d5: lea edx, [esp + 0xc]; push edx; push ebx; call eax; 
 0x00165cf6: lea edx, [esp + 0xc]; push edx; push ecx; call dword ptr [eax + 4]; 
 0x00115af4: lea edx, [esp + 4]; mov eax, 0xdd; mov ecx, 0x10; call dword ptr gs:[0x10]; 
@@ -31106,7 +31106,7 @@ Gadgets
 0x000213c4: nop; sbb eax, 0x3365ffe5; adc eax, 0x18; rol edx, 9; mov dword ptr [eax + 0x1978], edx; ret; 
 0x00133baf: nop; shr eax, 0x18; ret; 
 0x0009aff1: nop; std; cmc; dec dword ptr [edi]; inc ebp; ret 0x66c3; 
-0x001625d9: nop; sub ebx, esi; call dword ptr [eax - 0x48]; 
+0x001624e9: nop; sub ebx, esi; call dword ptr [eax - 0x48]; 
 0x00162384: nop; sub ebx, esi; call dword ptr [edx - 0x73]; 
 0x001627ea: nop; sub ebx, esi; call dword ptr [edx - 0x75]; 
 0x0019794f: nop; sub edi, 3; jb 0x1979f0; lea eax, [eax + 2]; pop edi; ret; 
@@ -33430,7 +33430,7 @@ Gadgets
 0x00035d34: pop ebx; pop esi; pop edi; fsubp st(1); ret; 
 0x00024c64: pop ebx; pop esi; pop edi; pop ebp; jmp eax; 
 0x0003671c: pop ebx; pop esi; pop edi; pop ebp; ret 4; 
-0x00122596: pop ebx; pop esi; pop edi; pop ebp; ret; 
+0x000217dc: pop ebx; pop esi; pop edi; pop ebp; ret; 
 0x00140c8d: pop ebx; pop esi; pop edi; ret 4; 
 0x00021e76: pop ebx; pop esi; pop edi; ret; 
 0x000b39d0: pop ebx; pop esi; pop edi; xor eax, eax; ret; 
@@ -40582,7 +40582,7 @@ Gadgets
 0x000949c1: stc; jmp dword ptr [ebp - 0x5f]; 
 0x0003ebe4: stc; jmp dword ptr [ebp - 0x75]; 
 0x0011d1d6: stc; jmp dword ptr [ecx]; 
-0x0018ebfb: stc; jmp dword ptr [esi + 0xf]; 
+0x0018cc9a: stc; jmp dword ptr [esi + 0xf]; 
 0x0017a00b: stc; jmp dword ptr [esi - 0x70]; 
 0x000238f0: stc; jmp dword ptr [esi - 0x77]; 
 0x001a0b34: stc; jmp ptr [eax + 0x16]; add al, byte ptr [eax]; add byte ptr [eax - 0x73], dl; or dword ptr [ebx + 0x2d], 0xfffffff9; call dword ptr [eax - 0x18]; 
