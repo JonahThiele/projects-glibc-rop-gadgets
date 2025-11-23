@@ -1,6 +1,5 @@
 // =====================
 // Trie Node & Trie (ROP gadgets) - unchanged from old working version
-// =====================
 class TrieNode {
     constructor() {
         this.children = {};
@@ -67,9 +66,7 @@ class Trie {
     }
 }
 
-// =====================
-// AVL Tree (unchanged)
-// =====================
+// AVL stuff
 class AVLNode {
     constructor(data) {
         this.data = data;
@@ -136,9 +133,6 @@ class AVLTree {
     }
 }
 
-// =====================
-// Helper functions
-// =====================
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         console.log('Address copied to clipboard:', text);
@@ -171,9 +165,7 @@ function showNotification(message, isError = false) {
     }, 3000);
 }
 
-// =====================
 // Main DOM setup
-// =====================
 document.addEventListener("DOMContentLoaded", () => {
     const finderInput = document.getElementById("file-finder-input");
     const finderResults = document.getElementById("file-finder-results");
@@ -183,39 +175,52 @@ document.addEventListener("DOMContentLoaded", () => {
     let loadedFiles = {};
     let selectedFilePath = null;
 
-    // =====================
-    // Fuse.js for file search
-    // =====================
-    const fuse = new Fuse(FILE_INDEX, { threshold: 0.4, ignoreLocation: true });
+// Fuse.js for file search
+// Convert FILE_INDEX into objects to separate name and file path
+const fileObjects = FILE_INDEX.map(path => ({
+    name: path.split("/").pop(),   // "glibc_2.31_20.04_x86_64.txt"
+    fullPath: path                 // "Ubuntu/x86_64/glibc_2.31_20.04_x86_64.txt"
+}));
 
-    finderInput.addEventListener("input", () => {
-        const query = finderInput.value.trim();
-        finderResults.innerHTML = "";
-        if (!query) return;
+// Fuse indexes ONLY the filename
+const fuse = new Fuse(fileObjects, {
+    keys: ["name"],
+    threshold: 0.4,
+    ignoreLocation: true
+});
 
-        const results = fuse.search(query).slice(0, 40);
-        if (results.length === 0) {
-            finderResults.style.display = "none";
-            return;
-        }
+finderInput.addEventListener("input", () => {
+    const query = finderInput.value.trim();
+    finderResults.innerHTML = "";
+    if (!query) return;
 
-        results.forEach(({ item }) => {
-            const li = document.createElement("li");
-            li.textContent = item;
-            li.addEventListener("click", () => {
-                finderInput.value = item;
-                finderResults.innerHTML = "";
-                selectedFilePath = "Gadgets/" + item;
-                loadGadgetFile(selectedFilePath);
-            });
-            finderResults.appendChild(li);
+    const results = fuse.search(query).slice(0, 40);
+    if (results.length === 0) {
+        finderResults.style.display = "none";
+        return;
+    }
+
+    results.forEach(({ item }) => {
+        const li = document.createElement("li");
+        li.textContent = item.name;  // show only filename
+
+        li.addEventListener("click", () => {
+            finderInput.value = item.name;
+            finderResults.innerHTML = "";
+
+            // Use the full path when loading the file
+            selectedFilePath = "Gadgets/" + item.fullPath;
+
+            loadGadgetFile(selectedFilePath);
         });
-        finderResults.style.display = "block";
+
+        finderResults.appendChild(li);
     });
 
-    // =====================
+    finderResults.style.display = "block";
+});
+
     // Load gadget file into Trie
-    // =====================
     async function loadGadgetFile(fullPath) {
         try {
             const response = await fetch(fullPath);
@@ -233,9 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // =====================
     // Gadget input search (Trie)
-    // =====================
     gadgetInput.addEventListener("input", () => {
         if (!selectedFilePath) return;
         const trie = loadedFiles[selectedFilePath];
@@ -248,10 +251,18 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const isRegex = /[\\^$*+?.()|[\]{}]/.test(query);
+        const isRegex = /[\\^$*+?.()|[\]{}]/.test(query);  // Detect if query has regex special chars
         let matches = [];
         try {
-            matches = isRegex ? trie.searchRegex(query) : trie.search(query);
+            if (isRegex) {
+                // Create a regex from the query. Ensure case-insensitive flag if needed
+                const regex = new RegExp(query, "i"); // "i" for case insensitive search
+                matches = trie.searchRegex(query); // Continue with Regex search from Trie
+                matches = matches.filter(match => regex.test(match.instruction)); // Filter results using the regex
+            } else {
+                // Regular prefix-based search if no regex was used
+                matches = trie.search(query);
+            }
         } catch {
             matches = [];
             showNotification("Error during search", true);
