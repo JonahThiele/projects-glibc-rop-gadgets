@@ -1,72 +1,59 @@
 import os
 import re
 
-#List of supported distros
+# List of supported distros
 DISTROS = ["Ubuntu", "Fedora"]
 
-#Base folder where gadget files are organized
+# Base folder where gadget files are organized
 BASE_DIR = "Gadgets"
 
-#Function to determine what architechtures and versions are present based on text files
-#present in local directory
-# Function to determine what architectures, versions, and distro versions
-# exist based on filename patterns.
-def extract_options_from_files():
-    distro_data = {}
+# Output files
+FILE_INDEX_JS = "file_index.js"  # JS array containing all gadget file paths
+INDEX_HTML = "index.html"        # Main HTML page for the autocomplete UI
 
-    # glibc_<glibcVersion>_<distroVersion>_<arch>.txt
+def collect_gadget_files():
+    """
+    Return a sorted list of all valid gadget file paths relative to Gadgets/
+    Filenames must match the pattern: glibc_<glibcVersion>_<distroVersion>_<arch>.txt
+    """
     pattern = re.compile(r"^glibc_([^_]+)_([^_]+)_([^_]+)\.txt$")
+    file_paths = []
 
     for distro in DISTROS:
         distro_path = os.path.join(BASE_DIR, distro)
-
         if not os.path.isdir(distro_path):
-            continue
-
-        architectures = set()
-        glibc_versions = set()
-        distro_versions = set()
+            continue  # Skip missing distro folders
 
         for arch in os.listdir(distro_path):
             arch_path = os.path.join(distro_path, arch)
             if not os.path.isdir(arch_path):
-                continue
+                continue  # Skip non-directory files
 
-            architectures.add(arch)
+            for fname in os.listdir(arch_path):
+                if pattern.match(fname):
+                    # Include relative path from Gadgets/
+                    file_paths.append(f"{distro}/{arch}/{fname}")
 
-            for filename in os.listdir(arch_path):
-                m = pattern.match(filename)
-                if m:
-                    glibc_versions.add(m.group(1))
-                    distro_versions.add(m.group(2))
+    return sorted(file_paths)
 
-        if architectures and glibc_versions and distro_versions:
-            distro_data[distro] = {
-                "architectures": sorted(architectures),
-                "glibc_versions": sorted(glibc_versions),
-                "distro_versions": sorted(distro_versions)
-            }
+def generate_file_index_js(file_paths):
+    """
+    Generate a JavaScript file containing a FILE_INDEX array
+    This is used by script.js for fuzzy file search
+    """
+    js_content = "const FILE_INDEX = [\n" + ",\n".join(f'    "{p}"' for p in file_paths) + "\n];\n"
+    with open(FILE_INDEX_JS, "w") as f:
+        f.write(js_content)
+    print(f"[+] Generated {FILE_INDEX_JS} with {len(file_paths)} entries")
 
-    return distro_data
-
-
-def collect_all_file_paths(distro_data):
-    files = []
-    for distro, info in distro_data.items():
-        for arch in info["architectures"]:
-            arch_path = os.path.join(BASE_DIR, distro, arch)
-            for filename in os.listdir(arch_path):
-                if filename.endswith(".txt"):
-                    files.append(f"{distro}/{arch}/{filename}")
-    return files
-
-
-#Function to generate new html for version/architectures to display in index.html 
-#based on source text files found in local directory
-# Function to generate new HTML using discovered distros, versions, and architectures
-def generate_html(distro_data):
-
-    html_template = f'''<!DOCTYPE html>
+def generate_index_html():
+    """
+    Generate a simplified HTML page with:
+    - Search bar for gadget files
+    - Search bar for gadgets inside selected file
+    - No more radio buttons; fuzzy search replaces them
+    """
+    html_content = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -79,49 +66,41 @@ def generate_html(distro_data):
         <h1>ROP Gadget Autocomplete</h1>
 
         <div class="input-container">
-
-            <!-- Search bar for what file -->
-            <input type="text" id="file-finder-input" placeholder="Search for distro/version/arch..." autocomplete="off">
+            <h3>Search Gadget Files</h3>
+            <input type="text" id="file-finder-input" placeholder="Start typing a file name..." autocomplete="off">
             <ul id="file-finder-results"></ul>
+        </div>
 
-            <!-- Search bar for ROP gadgets -->
-            <input type="text" id="autocomplete-input" placeholder="Search gadgets..." autocomplete="off">
+        <div class="input-container">
+            <h3>Search Gadgets Inside Selected File</h3>
+            <input type="text" id="autocomplete-input" placeholder="Start typing a ROP gadget..." autocomplete="off">
             <ul id="autocomplete-results"></ul>
-
         </div>
     </div>
 
+    <!-- Include generated file index for fuzzy file search -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+    <script src="file_index.js"></script>
     <script src="script.js"></script>
 </body>
 </html>'''
 
-    with open('index.html', 'w') as f:
-        f.write(html_template)
+    with open(INDEX_HTML, "w") as f:
+        f.write(html_content)
+    print(f"[+] Generated {INDEX_HTML}")
 
 def main():
-    #Get architectures and versions from source filenames present in local directory
-    distro_data = extract_options_from_files()
-    
-    if not distro_data:
-        print("No valid architecture-version files found in directory.")
+    # Collect architectures and versions from source filenames present in local directory
+    files = collect_gadget_files()
+    if not files:
+        print("[!] No gadget files found in Gadgets/ folder.")
         return
 
-    #If architectures and/or versions are found, generate new index.html
-    for distro, data in distro_data.items():
-        print(f"[{distro}] Architectures: {', '.join(data['architectures'])}")
-        print(f"[{distro}] Glibc Versions: {', '.join(data['glibc_versions'])}")
-        print(f"[{distro}] Distro Versions: {', '.join(data['distro_versions'])}")
+    # Generate JS array for fuzzy file search
+    generate_file_index_js(files)
 
-    file_list = collect_all_file_paths(distro_data)
-
-    with open("file_index.js", "w") as f:
-        f.write("const FILE_INDEX = ")
-        f.write(json.dumps(file_list, indent=4))
-        f.write(";")
-    
-    # Generate the HTML file with the found options
-    generate_html(distro_data)
-    print("index.html has been updated with available options.")
+    # Generate new index.html with search bars
+    generate_index_html()
 
 if __name__ == "__main__":
     main()
