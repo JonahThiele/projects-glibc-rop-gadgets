@@ -5,10 +5,6 @@ import re
 import os
 import shutil
 from datetime import datetime
-
-
-# place near your imports
-from datetime import datetime
 from email.utils import parsedate_to_datetime
 
 def get_file_date(link, file_url, max_sibling_steps=4, session=None):
@@ -60,7 +56,6 @@ def get_file_date(link, file_url, max_sibling_steps=4, session=None):
         pass
 
     return None
-
 
 url_prefix = "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/"
 
