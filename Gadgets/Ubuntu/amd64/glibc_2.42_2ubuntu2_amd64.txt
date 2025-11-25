@@ -8117,7 +8117,7 @@ Gadgets
 0x000000000018a892: add byte ptr [rbp + 0xf], dh; mov rbx, qword ptr [rbp - 8]; leave; ret; 
 0x00000000000ddb22: add byte ptr [rbp + 1], al; dec dword ptr [rax - 0x7d]; ret; 
 0x00000000000e304c: add byte ptr [rbp + 1], al; dec dword ptr [rcx - 0x7d]; ret 0x4518; 
-0x00000000000458c0: add byte ptr [rbp + 2], dh; leave; ret; 
+0x00000000001971de: add byte ptr [rbp + 2], dh; leave; ret; 
 0x000000000004c1dd: add byte ptr [rbp + 3], dh; push r10; ret; 
 0x000000000003cb09: add byte ptr [rbp + 4], dh; leave; ret; 
 0x000000000009fb6e: add byte ptr [rbp + 5], dh; leave; mov rax, rdx; ret; 
@@ -21068,7 +21068,7 @@ Gadgets
 0x00000000001afdef: ja 0x1afe03; tzcnt eax, eax; cmp edx, eax; jbe 0x1afe00; lea rax, [rdi + rax*4]; ret; 
 0x00000000001affaf: ja 0x1afff9; shl ecx, 0x20; add rdx, rcx; bsf rdx, rdx; lea rax, [rdi + rdx + 0x40]; ret; 
 0x00000000001b076f: ja 0x1b0783; tzcnt eax, eax; cmp edx, eax; jbe 0x1b0780; lea rax, [rdi + rax*4]; ret; 
-0x00000000001b09f3: ja 0x1b0a4f; add rdi, rsi; xor eax, eax; cmp rdx, rsi; cmova rax, rdi; ret; 
+0x00000000001b09f2: ja 0x1b0a4f; add rdi, rsi; xor eax, eax; cmp rdx, rsi; cmova rax, rdi; ret; 
 0x00000000001b0b1e: ja 0x1b0ae0; xor eax, eax; ret; 
 0x00000000001b0c9a: ja 0x1b0d80; vmovdqu64 zmm17, zmmword ptr [rsi + rdx - 0x40]; vmovdqu64 zmmword ptr [rdi], zmm16; vmovdqu64 zmmword ptr [rdi + rdx - 0x40], zmm17; ret; 
 0x00000000001b0c0e: ja 0x1b0d8d; vmovdqu64 zmm17, zmmword ptr [rsi + rdx - 0x40]; vmovdqu64 zmmword ptr [rdi], zmm16; vmovdqu64 zmmword ptr [rdi + rdx - 0x40], zmm17; ret; 
@@ -29128,7 +29128,7 @@ Gadgets
 0x00000000000b538a: mov dword ptr [rbp - 0x18], edx; mov edx, 1; syscall; 
 0x0000000000122e64: mov dword ptr [rbp - 0x18], edx; mov r10d, ecx; syscall; 
 0x000000000008c98f: mov dword ptr [rbp - 0x18], edx; mov rsi, r12; mov rdi, rbx; call qword ptr [rax + 0x38]; 
-0x000000000017cad5: mov dword ptr [rbp - 0x18], esi; lea rsi, [rbp - 0x10]; call qword ptr [rax]; 
+0x000000000018907d: mov dword ptr [rbp - 0x18], esi; lea rsi, [rbp - 0x10]; call qword ptr [rax]; 
 0x0000000000189eb5: mov dword ptr [rbp - 0x18], esi; lea rsi, [rbp - 0xc]; call qword ptr [rax + 0x40]; 
 0x00000000000ae527: mov dword ptr [rbp - 0x198], eax; mov rdx, r8; mov eax, 0xe; lea rsi, [rbp - 0x140]; syscall; 
 0x0000000000183edd: mov dword ptr [rbp - 0x1b0], eax; mov rax, qword ptr [rdi + 0x38]; call qword ptr [rax + 0x18]; 

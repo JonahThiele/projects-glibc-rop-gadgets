@@ -7845,7 +7845,7 @@ Gadgets
 0x0000000000045a4d: add byte ptr [rax], al; xor esi, esi; mov rdi, r8; call rax; 
 0x000000000007ecd7: add byte ptr [rax], al; xor esi, esi; mov rdi, rbp; call qword ptr [rbx + 0x10]; 
 0x0000000000099f48: add byte ptr [rax], al; xor r10d, r10d; mov edx, 0x7fffffff; mov esi, 0x81; mov eax, 0xca; syscall; 
-0x0000000000091920: add byte ptr [rax], al; xor r10d, r10d; mov edx, 1; mov esi, 0x81; mov eax, 0xca; syscall; 
+0x0000000000094ae1: add byte ptr [rax], al; xor r10d, r10d; mov edx, 1; mov esi, 0x81; mov eax, 0xca; syscall; 
 0x0000000000097b5d: add byte ptr [rax], al; xor r10d, r10d; xor esi, esi; mov rdi, rbp; mov eax, r13d; syscall; 
 0x0000000000096e1d: add byte ptr [rax], al; xor r10d, r10d; xor esi, esi; mov rdi, rbp; mov eax, r15d; syscall; 
 0x00000000000d8cce: add byte ptr [rax], al; xor r12d, r12d; mov rax, r12; pop r12; ret; 
@@ -39708,7 +39708,7 @@ Gadgets
 0x0000000000150bd2: out dx, eax; call 0x28370; jmp 0x150bc1; nop word ptr [rax + rax]; ret; 
 0x000000000003e9cd: out dx, eax; call 0x28370; jmp 0x3e7a8; nop dword ptr [rax + rax]; ret; 
 0x00000000000407c4: out dx, eax; call 0x28370; xor eax, eax; pop rbp; ret; 
-0x000000000015f6d5: out dx, eax; call qword ptr [rax + 0x10]; 
+0x00000000001684b5: out dx, eax; call qword ptr [rax + 0x10]; 
 0x000000000015f6d5: out dx, eax; call qword ptr [rax + 0x10]; test eax, eax; je 0x15f7df; mov rdi, r12; call qword ptr [rbx]; 
 0x000000000008b6d1: out dx, eax; call qword ptr [rax + 0x18]; 
 0x000000000015d180: out dx, eax; call qword ptr [rax + 0x20]; 
@@ -42612,7 +42612,7 @@ Gadgets
 0x00000000000d4672: ret 7; 
 0x00000000000aa2da: ret 8; 
 0x000000000008623a: ret 9; 
-0x0000000000029139: ret; 
+0x00000000001a7072: ret; 
 0x00000000001a1572: retf 0; add bl, dh; bsf eax, eax; add rax, rdi; vzeroupper; ret; 
 0x00000000001b5632: retf 0; add bl, dh; bsf eax, eax; lea rax, [rdi + rax*4]; ret; 
 0x00000000001bc2c6: retf 0; add byte ptr [rax - 0x77], cl; ret 0xc148; 

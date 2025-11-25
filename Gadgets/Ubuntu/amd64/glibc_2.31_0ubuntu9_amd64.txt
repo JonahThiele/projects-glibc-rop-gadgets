@@ -7669,7 +7669,7 @@ Gadgets
 0x00000000000e1fe2: add byte ptr [rax], al; push rdx; mov r9, qword ptr [rsp + 0x20]; mov rdx, qword ptr [rsp + 0x28]; mov rax, qword ptr [rsp + 0x18]; call rax; 
 0x00000000000967e3: add byte ptr [rax], al; pxor xmm0, xmm0; movups xmmword ptr [rbx + 0x48], xmm0; pop rbx; ret; 
 0x0000000000119d5e: add byte ptr [rax], al; pxor xmm0, xmm0; movups xmmword ptr [rdi], xmm0; ret; 
-0x0000000000027277: add byte ptr [rax], al; ret; 
+0x00000000000ba8a0: add byte ptr [rax], al; ret; 
 0x00000000001329f6: add byte ptr [rax], al; rol byte ptr [rcx + 0xfa], 0x80; cmovne eax, edi; ret; 
 0x0000000000026a49: add byte ptr [rax], al; rol rax, 0x11; mov qword ptr [rip + 0x1ca5b2], rax; ret; 
 0x0000000000036db5: add byte ptr [rax], al; ror rax, 0x11; xor rax, qword ptr fs:[0x30]; call rax; 
@@ -14493,7 +14493,7 @@ Gadgets
 0x000000000012ec95: call qword ptr [rsi + 0x74]; 
 0x0000000000093ace: call qword ptr [rsi + 0x78]; 
 0x00000000000b2e82: call qword ptr [rsi]; 
-0x00000000000270b1: call rax; 
+0x0000000000137b76: call rax; 
 0x0000000000085c42: call rax; cmp eax, -1; je 0x85c58; mov rax, qword ptr [rsp + 8]; add rsp, 0x18; ret; 
 0x0000000000156dad: call rax; jmp 0x156bd0; nop dword ptr [rax]; mov rdi, rsp; mov rsi, rbp; call qword ptr [rax + 0x18]; 
 0x0000000000149174: call rax; lea rax, [rip + 0xa7663]; add rsp, 8; ret; 
@@ -26425,7 +26425,7 @@ Gadgets
 0x00000000000be3b0: mov dword ptr [rdi + 0x10], edx; mov dword ptr [rdi + 0x18], ecx; xor ch, ch; mov byte ptr [rdi + 0x1c], ch; ret; 
 0x00000000000bb8a1: mov dword ptr [rdi + 0x10], edx; mov word ptr [rdi + 0x18], cx; lea rax, [rdi + 0x19]; ret; 
 0x00000000000bc711: mov dword ptr [rdi + 0x10], edx; mov word ptr [rdi + 0x18], cx; lea rax, [rdi + 0x1a]; ret; 
-0x00000000000ba1d1: mov dword ptr [rdi + 0x10], edx; mov word ptr [rdi + 0x18], cx; ret; 
+0x00000000000bdfd1: mov dword ptr [rdi + 0x10], edx; mov word ptr [rdi + 0x18], cx; ret; 
 0x00000000000be371: mov dword ptr [rdi + 0x10], edx; mov word ptr [rdi + 0x18], cx; xor ch, ch; mov byte ptr [rdi + 0x1a], ch; ret; 
 0x00000000001100de: mov dword ptr [rdi + 0x10c], esi; xor eax, eax; ret; 
 0x0000000000116c5c: mov dword ptr [rdi + 0x16], eax; ret; 
@@ -38773,7 +38773,7 @@ Gadgets
 0x0000000000026b6a: pop rbp; pop r12; pop r13; pop r14; pop r15; ret; 
 0x0000000000029599: pop rbp; pop r12; pop r13; pop r14; ret; 
 0x00000000000f2183: pop rbp; pop r12; pop r13; pop r15; ret; 
-0x000000000002911a: pop rbp; pop r12; pop r13; ret; 
+0x0000000000141c24: pop rbp; pop r12; pop r13; ret; 
 0x00000000000913af: pop rbp; pop r12; pop r14; ret; 
 0x0000000000032b58: pop rbp; pop r12; ret; 
 0x000000000013931e: pop rbp; pop r13; pop r14; pop r15; ret; 
@@ -41064,7 +41064,7 @@ Gadgets
 0x000000000009a26f: ret 7; 
 0x000000000007d8bb: ret 8; 
 0x0000000000121c79: ret 9; 
-0x0000000000025679: ret; 
+0x0000000000056f92: ret; 
 0x00000000000e4d93: retf 0; add byte ptr [rax - 0x73], cl; cmp eax, 0x10a422; syscall; 
 0x00000000000e4c53: retf 0; add byte ptr [rax - 0x73], cl; cmp eax, 0x10a562; syscall; 
 0x00000000000e4b9b: retf 0; add byte ptr [rax - 0x73], cl; cmp eax, 0x10a61a; syscall; 

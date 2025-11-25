@@ -27691,7 +27691,7 @@ Gadgets
 0x000000000017cac5: mov dword ptr [rdi - 2], edx; ret; 
 0x000000000017cca9: mov dword ptr [rdi - 3], edx; mov word ptr [rdi - 2], cx; ret; 
 0x000000000017d089: mov dword ptr [rdi - 4], ecx; ret; 
-0x000000000017c75f: mov dword ptr [rdi - 4], edx; ret; 
+0x000000000017cc43: mov dword ptr [rdi - 4], edx; ret; 
 0x000000000017d086: mov dword ptr [rdi - 5], edx; mov dword ptr [rdi - 4], ecx; ret; 
 0x000000000017d286: mov dword ptr [rdi - 6], edx; mov dword ptr [rdi - 4], ecx; ret; 
 0x000000000017d486: mov dword ptr [rdi - 7], edx; mov dword ptr [rdi - 4], ecx; ret; 
@@ -39708,7 +39708,7 @@ Gadgets
 0x0000000000150bd2: out dx, eax; call 0x28370; jmp 0x150bc1; nop word ptr [rax + rax]; ret; 
 0x000000000003e9cd: out dx, eax; call 0x28370; jmp 0x3e7a8; nop dword ptr [rax + rax]; ret; 
 0x00000000000407c4: out dx, eax; call 0x28370; xor eax, eax; pop rbp; ret; 
-0x000000000015f6d5: out dx, eax; call qword ptr [rax + 0x10]; 
+0x00000000001684b5: out dx, eax; call qword ptr [rax + 0x10]; 
 0x000000000015f6d5: out dx, eax; call qword ptr [rax + 0x10]; test eax, eax; je 0x15f7df; mov rdi, r12; call qword ptr [rbx]; 
 0x000000000008b6d1: out dx, eax; call qword ptr [rax + 0x18]; 
 0x000000000015d180: out dx, eax; call qword ptr [rax + 0x20]; 
@@ -40234,7 +40234,7 @@ Gadgets
 0x000000000016c0c7: pop rbp; pop r14; jmp rcx; 
 0x000000000002d545: pop rbp; pop r14; pop r15; jmp rax; 
 0x000000000002a741: pop rbp; pop r14; pop r15; pop rbp; ret; 
-0x000000000002a3e1: pop rbp; pop r14; pop r15; ret; 
+0x000000000014bf2f: pop rbp; pop r14; pop r15; ret; 
 0x000000000002be4f: pop rbp; pop r14; ret; 
 0x0000000000044d44: pop rbp; pop rbp; ret; 
 0x0000000000054618: pop rbp; pop rbx; ret; 

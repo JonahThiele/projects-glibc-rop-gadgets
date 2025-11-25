@@ -7812,7 +7812,7 @@ Gadgets
 0x000000000018f2b6: add byte ptr [rcx - 0x7d], cl; ret 0x4901; 
 0x0000000000081be7: add byte ptr [rcx - 0x7d], cl; ret 0x4904; 
 0x00000000001113ba: add byte ptr [rcx - 0x7d], cl; ret 0x4d04; 
-0x00000000001b3acf: add byte ptr [rcx - 0x7d], cl; ret 0x7f10; 
+0x00000000001b413f: add byte ptr [rcx - 0x7d], cl; ret 0x7f10; 
 0x000000000013cfad: add byte ptr [rcx - 0x7d], cl; ret 0xe901; 
 0x00000000000f8da8: add byte ptr [rcx - 0x7d], cl; ret 0xe904; 
 0x00000000000c40cf: add byte ptr [rcx - 0x7d], cl; ret 0xf10; 
@@ -38115,7 +38115,7 @@ Gadgets
 0x0000000000119e97: pop r13; pop r14; pop r15; ret; 
 0x00000000000a0cd8: pop r13; pop r14; pop rbp; cmp edx, 1; sbb eax, eax; ret; 
 0x000000000008e153: pop r13; pop r14; pop rbp; jmp rax; 
-0x000000000002b6d8: pop r13; pop r14; pop rbp; ret; 
+0x0000000000037264: pop r13; pop r14; pop rbp; ret; 
 0x000000000011b07a: pop r13; pop r14; ret; 
 0x000000000008f6f6: pop r13; pop r14; sar rax, 2; pop r15; pop rbp; ret; 
 0x0000000000057cd6: pop r13; pop r14; xor rax, rdx; pop r15; pop rbp; ret; 

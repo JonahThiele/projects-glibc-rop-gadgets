@@ -39447,7 +39447,7 @@ Gadgets
 0x000000000012e92c: pop r13; mov rax, qword ptr [r14 + rax*8 + 8]; pop r14; pop rbp; ret; 
 0x000000000002a613: pop r13; pop r14; pop r15; pop rbp; jmp rax; 
 0x000000000017b040: pop r13; pop r14; pop r15; pop rbp; jmp rcx; 
-0x000000000002a86e: pop r13; pop r14; pop r15; pop rbp; ret; 
+0x00000000001343bf: pop r13; pop r14; pop r15; pop rbp; ret; 
 0x000000000010f786: pop r13; pop r14; pop r15; ret; 
 0x000000000009a778: pop r13; pop r14; pop rbp; cmp edx, 1; sbb eax, eax; ret; 
 0x00000000000881e3: pop r13; pop r14; pop rbp; jmp rax; 
@@ -42100,7 +42100,7 @@ Gadgets
 0x00000000000380b7: ret 7; 
 0x0000000000067e03: ret 8; 
 0x00000000000d7f12: ret 9; 
-0x000000000002882f: ret; 
+0x00000000000a4860: ret; 
 0x000000000009860d: retf 0; add byte ptr [rbp + 0x31], al; ror byte ptr [rcx + 0x80beca], cl; add byte ptr [rax], al; mov eax, r8d; syscall; 
 0x000000000009ac94: retf 0; add byte ptr [rcx + rax - 1], cl; syscall; 
 0x000000000012a85d: retf 0x1074; mov eax, 0x113; syscall; 
