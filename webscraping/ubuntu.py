@@ -53,6 +53,14 @@ def get_file_date(link, file_url, max_sibling_steps=4, session=None):
 
 url_prefix = "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/"
 
+def setup_environment(url_prefix, download_dir, gadgets_dir):
+    os.makedirs(download_dir, exist_ok=True)
+    os.makedirs(gadgets_dir, exist_ok=True)
+
+    ubuntu_glibc = requests.get(url_prefix)
+    soup = BeautifulSoup(ubuntu_glibc.text, 'html.parser')
+    return soup
+
 def should_process_file(name, skip, cutoff_date, link, url_prefix, session):
     if not name.endswith(".deb"):
         return False, None
@@ -180,12 +188,24 @@ def main():
         if not match.match(name):
             continue
 
+        # Determine future gadget filename BEFORE downloading
+        parts = name.split("_")
+        version = parts[1].replace("-", "_")
+        arch = parts[2].replace(".deb", "")
+        new_filename = f"glibc_{version}_{arch}.txt"
+        arch_dir = os.path.join(gadgets_dir, arch)
+        gadget_path = os.path.join(arch_dir, new_filename)
+
+        # Skip if gadget already exists
+        if os.path.exists(gadget_path):
+            print(f"Already exists — skipping download: {new_filename}")
+            continue
+
+        # Otherwise proceed normally
         file_path = download_deb(name, url_prefix, download_dir)
         count += 1
 
         libc_path = extract_libc(file_path)
-        arch = name.split("_")[-1].replace(".deb", "")
-
         generate_gadget_file(name, libc_path, gadgets_dir, arch, pattern)
 
     try:
