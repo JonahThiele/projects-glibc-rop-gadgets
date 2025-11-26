@@ -64,12 +64,16 @@ def scrape_glibc_versions_from_page(url, version_dict):
             # Store only if we have a build ID and it's an fc disttag
             # Note that the fc disttag represents a standard build 
             # (as opposed to the exprimental eln)
+            # Added the release to the name here, since it appears that
+            # each release is meaningfully different
+            # I've chosen to seperate the disttag from the release number with a '-' char
             if build_id and disttag.startswith('fc'):
-                key = (version, disttag)
+                key = (version, disttag+"-"+str(release))
                 
-                # Keep only the lowest release number for each version-disttag combination
-                # (If we want to change this to highest release number, we can easily do so here)
-                if (key not in version_dict) or (release < version_dict[key]['release']):
+                # Originally used to Keep only the lowest release number for each version-disttag combination
+                # Note! Actually I commented this out because it was not really desireable 
+                # and added unneccessary complexity. 
+                if (key not in version_dict): #or (release < version_dict[key]['release']):
                     version_dict[key] = {
                         'release': release,
                         'build_id': build_id,
@@ -98,7 +102,9 @@ def get_glibc_versions_all_pages(quiet = False):
         print("Starting to scrape glibc versions from all pages...")
     
     # Use iterative approach - follow next page links until no more glibc content
-    while current_url and (current_url not in processed_urls):
+    # Only pull from first 10 pages (somewhat arbitrary, but seems to get the 'most likely
+    # to be useful' versions).
+    while current_url and (current_url not in processed_urls) and page_count < 10:
         page_count += 1
 
         if quiet == False:
@@ -181,9 +187,8 @@ def extract_rpm_urls_from_buildinfo(buildinfo_url):
         dict: dictionary with string keys representing the architecture and values representing the .rpm download urls
     """
 
-    # ARM 32 bit assembly didn't seem to be available on this repository, but 
-    # if we find it, we should be able to add it later.
-    target_architectures = ['aarch64', 'i686', 'x86_64']
+    # Commented out ARM64 (aarch64) because I'm not sure if it's 'worth' all the extra overhead.
+    target_architectures = ['i686', 'x86_64'] #, 'aarch64']
     rpm_urls = {}
     
     # Check connectivity
@@ -535,7 +540,11 @@ def create_rop_gadgets(quiet=False):
         os.makedirs(arch_dir, exist_ok=True)
         glibc_version = name.split('-')[1]
         fedora_version = name.split('.')[2]
-        gadget_path = os.path.join(arch_dir, "glibc_" + glibc_version + "_" + fedora_version + "_" + arch + ".txt")
+
+        # Added release number to ROP gadget text file name. Aparently releases are meaningfully different
+        release = name.split('-')[2]
+        gadget_path = os.path.join(arch_dir, "glibc_" + glibc_version + "-" + release + "_" + fedora_version + "_" + arch + ".txt")
+
         glibc_path = os.path.join(binary_dir, name)
         print(f"Running {name} through ropper to {gadget_path}")
         with open(gadget_path, "w") as out:
