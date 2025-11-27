@@ -1,10 +1,11 @@
 # Starter stuff for pytest - must pip install pytest first
 # use file to import funcs from then write tests for them
-# To run tests, go to root/main dir, then run pytest to do ALL tests in tests folder
+# To run tests, go to root dir, then run "pytest -v"
+    # will run all tests in folder
 
 import os
 from unittest.mock import Mock
-from ubuntu import download_deb
+from webscraping.ubuntu import download_deb
 
 def test_download_deb(monkeypatch, tmp_path):
     fake_response = Mock()
