@@ -6,6 +6,7 @@ import os
 import shutil
 from datetime import datetime
 from email.utils import parsedate_to_datetime
+from pathlib import Path
 
 def get_file_date(link, file_url, max_sibling_steps=4, session=None):
     """
@@ -103,7 +104,8 @@ def download_deb(name, url_prefix, download_dir):
 
 def extract_libc(file_path):
     subprocess.run(["debx", "unpack", file_path])
-    dir_path = file_path[:-4]
+    dir_path = str(file_path)[:-4]
+    #dir_path = file_path[:-4] #changed for testing
 
     libc = "libc.so.6"
     data_tar_zst_path = os.path.join(dir_path, "data.tar.zst")
