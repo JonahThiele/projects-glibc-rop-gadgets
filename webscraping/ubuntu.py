@@ -53,6 +53,14 @@ def get_file_date(link, file_url, max_sibling_steps=4, session=None):
 
 url_prefix = "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/"
 
+def setup_environment(url_prefix, download_dir, gadgets_dir):
+    os.makedirs(download_dir, exist_ok=True)
+    os.makedirs(gadgets_dir, exist_ok=True)
+
+    ubuntu_glibc = requests.get(url_prefix)
+    soup = BeautifulSoup(ubuntu_glibc.text, 'html.parser')
+    return soup
+
 def should_process_file(name, skip, cutoff_date, link, url_prefix, session):
     if not name.endswith(".deb"):
         return False, None
