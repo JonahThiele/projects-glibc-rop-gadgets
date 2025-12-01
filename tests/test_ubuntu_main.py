@@ -1,16 +1,13 @@
 import os
+import re
 import shutil
 import pytest
 from unittest.mock import patch
 
-# Helper fake stuffs
 class FakeLink:
     def __init__(self, text):
         self.text = text
-        self.next_siblings = []  # simulate no siblings
-
-    def get(self, key):
-        return "href"
+        self.next_siblings = []
 
 class FakeSoup:
     def __init__(self, links):
@@ -19,21 +16,22 @@ class FakeSoup:
     def find_all(self, tag, href):
         return self._links
 
-
-# Test 1 - skips download process for duplicates
+# Test 1 — Skip existing gadget
 def test_main_skips_existing(monkeypatch, capsys):
-    # Fake page with a single valid libc link
     fake_link = FakeLink("libc6_2.31-0ubuntu9_amd64.deb")
     fake_soup = FakeSoup([fake_link])
 
-    # Mock setup_environment → returns fake soup
     monkeypatch.setattr("webscraping.ubuntu.setup_environment",
                         lambda *a, **k: fake_soup)
 
-    # Pretend gadget file already exists
+    # force main() to run the body
+    monkeypatch.setattr("webscraping.ubuntu.should_process_file",
+                        lambda *a, **k: (True, None))
+    monkeypatch.setattr("webscraping.ubuntu.re", re)
+
+    # gadget exists → should skip
     monkeypatch.setattr("os.path.exists", lambda x: True)
 
-    # Ensure download / extract / generate are NOT called
     monkeypatch.setattr("webscraping.ubuntu.download_deb",
                         lambda *a, **k: pytest.fail("download_deb should NOT be called"))
     monkeypatch.setattr("webscraping.ubuntu.extract_libc",
@@ -46,11 +44,10 @@ def test_main_skips_existing(monkeypatch, capsys):
     from webscraping.ubuntu import main
     main()
 
-    output = capsys.readouterr().out
-    assert "Already exists — skipping download" in output
+    out = capsys.readouterr().out
+    assert "Already exists — skipping download" in out
 
-
-# Test 2 - download, extraction, and file generation when file missing
+# Test 2 — Download/extract/generate
 def test_main_downloads_if_missing(monkeypatch):
     calls = {"download": False, "extract": False, "generate": False}
 
@@ -60,10 +57,13 @@ def test_main_downloads_if_missing(monkeypatch):
     monkeypatch.setattr("webscraping.ubuntu.setup_environment",
                         lambda *a, **k: fake_soup)
 
-    # Pretend gadget file does not exist
+    # allow processing
+    monkeypatch.setattr("webscraping.ubuntu.should_process_file",
+                        lambda *a, **k: (True, None))
+    monkeypatch.setattr("webscraping.ubuntu.re", re)
+
     monkeypatch.setattr("os.path.exists", lambda x: False)
 
-    # Track calls to each function
     monkeypatch.setattr("webscraping.ubuntu.download_deb",
                         lambda *a, **k: calls.__setitem__("download", True) or "/tmp/fake.deb")
     monkeypatch.setattr("webscraping.ubuntu.extract_libc",
@@ -81,7 +81,8 @@ def test_main_downloads_if_missing(monkeypatch):
     assert calls["generate"]
 
 
-# Test 3 - Removing directories
+
+# Test 3 — Directory removal
 def test_main_removes_download_dir(monkeypatch):
     removed = {"flag": False}
 
@@ -89,6 +90,11 @@ def test_main_removes_download_dir(monkeypatch):
 
     monkeypatch.setattr("webscraping.ubuntu.setup_environment",
                         lambda *a, **k: fake_soup)
+
+    # allow processing
+    monkeypatch.setattr("webscraping.ubuntu.should_process_file",
+                        lambda *a, **k: (True, None))
+    monkeypatch.setattr("webscraping.ubuntu.re", re)
 
     def fake_rmtree(path):
         removed["flag"] = True
@@ -99,15 +105,20 @@ def test_main_removes_download_dir(monkeypatch):
     from webscraping.ubuntu import main
     main()
 
-    assert removed["flag"], "main() did not call shutil.rmtree()"
+    assert removed["flag"]
 
 
-#Test 4 - cleanup error handling
+# Test 4 — Cleanup error handling
 def test_main_cleanup_error(monkeypatch, capsys):
     fake_soup = FakeSoup([])
 
     monkeypatch.setattr("webscraping.ubuntu.setup_environment",
                         lambda *a, **k: fake_soup)
+
+    # allow processing
+    monkeypatch.setattr("webscraping.ubuntu.should_process_file",
+                        lambda *a, **k: (True, None))
+    monkeypatch.setattr("webscraping.ubuntu.re", re)
 
     def fake_rmtree(path):
         raise OSError("permission denied")
@@ -119,3 +130,44 @@ def test_main_cleanup_error(monkeypatch, capsys):
 
     output = capsys.readouterr().out
     assert "Error removing" in output
+
+#For line 188
+def test_main_skips_when_should_process_file_false(monkeypatch, capsys):
+    fake_link = FakeLink("libc6_2.31-0ubuntu9_amd64.deb")
+    fake_soup = FakeSoup([fake_link])
+    monkeypatch.setattr("webscraping.ubuntu.setup_environment", lambda *a, **k: fake_soup)
+    
+    # This triggers line 188
+    monkeypatch.setattr("webscraping.ubuntu.should_process_file", lambda *a, **k: (False, None))
+    
+    # ensure regex still works
+    monkeypatch.setattr("webscraping.ubuntu.re", re)
+    
+    # patch rmtree to avoid cleanup
+    monkeypatch.setattr("shutil.rmtree", lambda *a: None)
+    
+    from webscraping.ubuntu import main
+    main()
+    
+    out = capsys.readouterr().out
+    # Should NOT attempt download
+    assert "Already exists" not in out
+
+#For line 191
+def test_main_skips_nonmatching_filename(monkeypatch, capsys):
+    fake_link = FakeLink("randomfile.txt")  # doesn't match match regex
+    fake_soup = FakeSoup([fake_link])
+    monkeypatch.setattr("webscraping.ubuntu.setup_environment", lambda *a, **k: fake_soup)
+    
+    # should_process_file returns True, so line 191 is reached
+    monkeypatch.setattr("webscraping.ubuntu.should_process_file", lambda *a, **k: (True, None))
+    
+    monkeypatch.setattr("webscraping.ubuntu.re", re)
+    monkeypatch.setattr("shutil.rmtree", lambda *a: None)
+    
+    from webscraping.ubuntu import main
+    main()
+    
+    out = capsys.readouterr().out
+    # Should NOT attempt download
+    assert "Already exists" not in out

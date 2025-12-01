@@ -218,5 +218,6 @@ def main():
 
     print(f"\nDone — {count} files downloaded to {download_dir}")
 
-if __name__ == "__main__":
+# pragma is to skip this in testing, not a logic branch
+if __name__ == "__main__": # pragma: no cover
     main()
