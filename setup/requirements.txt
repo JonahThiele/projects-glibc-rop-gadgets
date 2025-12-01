@@ -3,3 +3,4 @@ requests
 debx
 ropper
 pytest
+coverage
