@@ -30,6 +30,20 @@ def mocks(monkeypatch):
     return calls
 
 #tests for get_file_date function 
+#can't get the exception to get hit
+def test_get_file_date_should_handle_exceptions():
+    #arrange
+    class mockSession:
+        def head(self, *args, **kwargs):
+            raise RuntimeError("network failure")
+        
+    link = type("L", (), {"next_siblings": []})()
+    file_url = "file_url"
+    # act
+    result = ub.get_file_date(link, file_url, max_sibling_steps=4, session=mockSession())
+    # assert
+    assert result == None
+    
 def test_get_file_date_should_handle_datetime_strptime_incorrect_format():
     # arrange
     class mockedLink:
@@ -43,25 +57,7 @@ def test_get_file_date_should_handle_datetime_strptime_incorrect_format():
     # assert
     assert result == None
     
-def test_get_file_data_fails_to_get_head(monkeypatch):
-    # arrange
-
-    # mock parse 
-    def mock_parse(*arg, **kwards):
-        raise ValueError()
-    
-    class MockHead:
-        def __init__(self):
-            self.status_code = 200
-            self.headers = {"Last-Modified": "Mon, 10 Apr 2023 10:00:00 GMT"}
-    
-    class MockSession:
-        def head(self, *args, **kwargs):
-            return MockHead()
-
-    monkeypatch.setattr(ub, "parsedate_to_datetime", mock_parse)
-
-    # idk this just works for some reason, will clean this up in the
+def test_get_file_data_fails_to_get_head():
     # second rount of testing
     link = type("L", (), {"next_siblings": []})()
     file_url = "file_url"
@@ -69,6 +65,24 @@ def test_get_file_data_fails_to_get_head(monkeypatch):
     result = ub.get_file_date(link, file_url, max_sibling_steps=4, session=None)
     # assert
     assert result == None
+
+def test_get_file_data_if_sib_is_None():
+    # second rount of testing
+    link = type("L", (), {"next_siblings": [None]})()
+    file_url = "file_url"
+    # act
+    result = ub.get_file_date(link, file_url, max_sibling_steps=4, session=None)
+    # assert
+    assert result == None
+
+def test_get_file_data_if_sibling_greater_than_step():
+    # second rount of testing
+    link = type("L", (), {"next_siblings": [None, None, 'link']})()
+    file_url = "file_url"
+    # act
+    result = ub.get_file_date(link, file_url, max_sibling_steps=1, session=None)
+    # assert
+    assert result == None 
 
 #tests for setup environment function
 def test_setup_environment_should_generate_folders(mocks):
@@ -194,7 +208,7 @@ def test_should_not_process_file_if_file_date_is_none(monkeypatch):
 
 def test_should_not_process_file_if_file_is_multi_arch(monkeypatch):
     # arrange
-    name = 'multiarch-support_2.23-0ubuntu3_amd64.deb'
+    name = 'libc6-x32_2.35-0ubuntu3.12_i386.deb'
     skip = re.compile(r"(-dev|-dbg|-bin|-doc|-locale|-prof|_all\.deb$)")
     cutoff_date =  datetime(2025, 1, 1).date()
     link = 'https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/multiarch-support_2.23-0ubuntu3_amd64.deb'
@@ -210,4 +224,4 @@ def test_should_not_process_file_if_file_is_multi_arch(monkeypatch):
     result = ub.should_process_file(name, skip, cutoff_date, link, url_prefix, session)
 
     # assert
-    assert result == (True, datetime(2025, 1, 1).date())
+    assert result == (False, datetime(2025, 1, 1).date())
