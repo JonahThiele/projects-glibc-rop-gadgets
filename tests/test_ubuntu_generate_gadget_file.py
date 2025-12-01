@@ -84,3 +84,49 @@ def test_generate_gadget_file_calls_ropper_correctly(tmp_path):
 
     cmd_used = mock_run.call_args.args[0]
     assert cmd_used == ["ropper", "--nocolor", "--file", str(libc_path)]
+
+def test_generate_gadget_file_unknown_fields(tmp_path):
+    """
+    Triggers the fallback branch:
+        raw_version = 'unknown'
+        arch = 'unknown'
+    by giving a filename with fewer than 3 parts.
+    """
+    name = "badname.deb"
+
+    libc_path = tmp_path / "libc.so.6"
+    libc_path.write_text("dummy")
+
+    gadgets_dir = tmp_path / "gadgets"
+    pattern = re.compile(r"\[LOAD\]", re.IGNORECASE)
+
+    # Mock subprocess.run so no ropper actually runs
+    with patch("subprocess.run") as mock_run:
+        mock_run.return_value = MagicMock()
+        mock_run.return_value.returncode = 0
+
+        def fake_run(cmd, stdout, stderr, check, text):
+            stdout.write("valid_line\n[LOAD] bad\n")
+            return mock_run.return_value
+
+        mock_run.side_effect = fake_run
+
+        created_path = generate_gadget_file(
+            name=name,
+            libc_path=str(libc_path),
+            gadgets_dir=str(gadgets_dir),
+            arch="ignored",     # overridden by fallback logic
+            pattern=pattern,
+        )
+
+    # Expected fallback path
+    expected = gadgets_dir / "unknown" / "glibc_unknown_unknown.txt"
+    assert created_path == str(expected)
+    assert expected.exists()
+
+    # verify fallback values hit
+    assert "glibc_unknown_unknown.txt" in created_path
+
+    # verify filtering still happened
+    lines = expected.read_text().splitlines()
+    assert lines == ["valid_line"]
