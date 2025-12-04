@@ -251,7 +251,10 @@ finderInput.addEventListener("input", () => {
             return;
         }
 
-        const isRegex = /[\\^$*+?.()|[\]{}]/.test(query);  // Detect if query has regex special chars
+        //Some of the special RegEx chars are casuing issues with the search. I've removed them
+        // For now, but This needs to be addressed.
+        //const isRegex = /[\\^$*+?.()|[\]{}]/.test(query);  // Detect if query has regex special chars
+        const isRegex = /[\\^$*?.()|\{}]/.test(query);  // Detect if query has regex special chars
         let matches = [];
         try {
             if (isRegex) {
