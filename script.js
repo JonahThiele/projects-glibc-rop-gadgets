@@ -253,11 +253,12 @@ finderInput.addEventListener("input", () => {
 
         //Some of the special RegEx chars are casuing issues with the search. I've removed them
         // For now, but This needs to be addressed.
-        //const isRegex = /[\\^$*+?.()|[\]{}]/.test(query);  // Detect if query has regex special chars
-        const isRegex = /[\\^$*?.()|\{}]/.test(query);  // Detect if query has regex special chars
+        //const isRegex = /[\\^$*?.()|\{}]/.test(query);  // Detect if query has regex special chars
+        const isRegex = /[\\^$*+?.()|[\]{}]/.test(query); //change to include text??!
         let matches = [];
         try {
             if (isRegex) {
+                //change to search past the hex addr
                 // Create a regex from the query. Ensure case-insensitive flag if needed
                 const regex = new RegExp(query, "i"); // "i" for case insensitive search
                 matches = trie.searchRegex(query); // Continue with Regex search from Trie

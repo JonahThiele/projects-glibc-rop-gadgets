@@ -67,7 +67,7 @@ def generate_index_html():
 
         <div class="input-container">
             <h3>Search Gadget Files</h3>
-            <h4>File Naming convention: glibc_(glibc ver)_(distrover)_(arch).txt</h3>
+            <h4>File Naming convention: glibc_(glibc ver)_(distro ver)_(arch).txt</h3>
             <input type="text" id="file-finder-input" placeholder="Start typing a file name..." autocomplete="off">
             <ul id="file-finder-results"></ul>
         </div>
