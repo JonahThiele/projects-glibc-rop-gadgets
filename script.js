@@ -55,6 +55,22 @@ class Trie {
         matches.forEach(m => avlTree.insert(m));
         return avlTree.inOrderTraversal();
     }
+    performSearch(pattern) {
+        if (!pattern) return [];
+        let regex;
+        const safeQuery = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        try {
+            regex = new RegExp(safeQuery, "i");
+        } catch (e) {
+            console.error("Invalid regex:", e);
+            return [];
+        }
+        const allInstructions = this._findInstructionsFromNode(this.root, "");
+        const matches = allInstructions.filter(item => regex.test(item.instruction));
+        const avlTree = new AVLTree();
+        matches.forEach(m => avlTree.insert(m));
+        return avlTree.inOrderTraversal();
+    }
 
     _findInstructionsFromNode(node, prefix) {
         let results = [];
@@ -251,18 +267,25 @@ finderInput.addEventListener("input", () => {
             return;
         }
 
-        const isRegex = /[\\^$*+?.()|[\]{}]/.test(query);  // Detect if query has regex special chars
+        //Some of the special RegEx chars are casuing issues with the search. I've removed them
+        // For now, but This needs to be addressed.
+        //const isRegex = /[\\^$*+?.()|[\]{}]/.test(query);  // Detect if query has regex special chars
+        //const isRegex = /[\\^$*?.()|\{}]/.test(query);  // Detect if query has regex special chars
+        // const isRegex = /./s.test(query);
         let matches = [];
         try {
-            if (isRegex) {
-                // Create a regex from the query. Ensure case-insensitive flag if needed
-                const regex = new RegExp(query, "i"); // "i" for case insensitive search
-                matches = trie.searchRegex(query); // Continue with Regex search from Trie
-                matches = matches.filter(match => regex.test(match.instruction)); // Filter results using the regex
-            } else {
-                // Regular prefix-based search if no regex was used
-                matches = trie.search(query);
-            }
+            // if (isRegex) {
+            //     console.log("Used Regex")
+            //     // Create a regex from the query. Ensure case-insensitive flag if needed
+            //     const regex = new RegExp(query, "i"); // "i" for case insensitive search
+            //     matches = trie.searchRegex(query); // Continue with Regex search from Trie
+            //     matches = matches.filter(match => regex.test(match.instruction)); // Filter results using the regex
+            // } else {
+            //     // Regular prefix-based search if no regex was used
+            //     console.log("Used Prefix")
+            //     matches = trie.search(query);
+            // }
+            matches = trie.performSearch(query);
         } catch {
             matches = [];
             showNotification("Error during search", true);
