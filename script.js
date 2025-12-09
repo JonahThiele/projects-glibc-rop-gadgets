@@ -156,7 +156,7 @@ function copyToClipboard(text) {
     }).catch(err => console.error('Failed to copy address:', err));
 }
 
-function showNotification(message, isError = false) {
+function showNotification(message, isError = false, isLong = false) {
     const notification = document.createElement('div');
     notification.textContent = message;
     notification.style.position = 'fixed';
@@ -171,7 +171,7 @@ function showNotification(message, isError = false) {
     notification.style.zIndex = '1000';
     notification.style.fontFamily = 'Arial, sans-serif';
     notification.style.fontSize = '16px';
-    notification.style.transition = 'opacity 0.5s ease-in-out';
+    notification.style.transition = isLong ? 'opacity 2.5s ease-in-out' :'opacity 0.5s ease-in-out';
     notification.style.opacity = '0';
 
     document.body.appendChild(notification);
