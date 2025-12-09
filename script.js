@@ -156,8 +156,9 @@ function copyToClipboard(text) {
     }).catch(err => console.error('Failed to copy address:', err));
 }
 
-function showNotification(message, isError = false) {
+function showNotification(message, isError = false, isLong = false) {
     const notification = document.createElement('div');
+    // ... (Your existing styles remain the same) ...
     notification.textContent = message;
     notification.style.position = 'fixed';
     notification.style.top = '20px';
@@ -171,15 +172,38 @@ function showNotification(message, isError = false) {
     notification.style.zIndex = '1000';
     notification.style.fontFamily = 'Arial, sans-serif';
     notification.style.fontSize = '16px';
-    notification.style.transition = 'opacity 0.5s ease-in-out';
+    
+    // CHANGE 1: Set a very fast transition for the entry (0.1s), or none at all.
+    // This ensures the notification appears snappy when it first pops up.
+    notification.style.transition = 'opacity 0.1s ease-out';
     notification.style.opacity = '0';
 
     document.body.appendChild(notification);
-    setTimeout(() => notification.style.opacity = '1', 10);
+
+    // Trigger the Fade In
     setTimeout(() => {
+        notification.style.opacity = '1';
+    }, 10);
+
+    // Determine how long the fade OUT should take
+    const fadeOutDuration = isLong ? 2500 : 500; // in milliseconds
+
+    // Trigger the Fade Out sequence
+    setTimeout(() => {
+        // CHANGE 2: Update the transition settings JUST before we fade out.
+        // We switch to the longer time here.
+        notification.style.transition = `opacity ${fadeOutDuration}ms ease-out`;
         notification.style.opacity = '0';
-        setTimeout(() => document.body.removeChild(notification), 500);
-    }, 3000);
+
+        // CHANGE 3: Dynamic Removal Timer
+        // We wait for 'fadeOutDuration' instead of hardcoding 500.
+        setTimeout(() => {
+            if (notification.parentNode) {
+                document.body.removeChild(notification);
+            }
+        }, fadeOutDuration); 
+
+    }, 3000); // Waits 3 seconds before starting the fade out
 }
 
 // Main DOM setup
@@ -277,6 +301,7 @@ finderInput.addEventListener("input", () => {
         try {
             if (isRegex) {
                 console.log("Used Regex")
+                showNotification("Switched to regex search...", false, true)
                 // Create a regex from the query. Ensure case-insensitive flag if needed
                 const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const regex = new RegExp(safeQuery, "i"); // "i" for case insensitive search
