@@ -277,6 +277,7 @@ finderInput.addEventListener("input", () => {
         try {
             if (isRegex) {
                 console.log("Used Regex")
+                showNotification("Switched to regex search...")
                 // Create a regex from the query. Ensure case-insensitive flag if needed
                 const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const regex = new RegExp(safeQuery, "i"); // "i" for case insensitive search
